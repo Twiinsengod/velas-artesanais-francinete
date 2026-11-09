@@ -39,7 +39,7 @@
     --sc-shadow-color: 18 40% 4%;
     --ember: #261913;
     --wax: #F2EDE6;
-    --nav-h: 4.25rem;
+    --nav-h: 3.25rem;
   }
   /* Cera: os chãos claros do fim. Mesmo matiz de acento, outra luminosidade. */
   .ground-light {
@@ -57,18 +57,6 @@
   h3 { font-family: var(--sc-font-display); font-variation-settings: "SOFT" 100, "opsz" 48; font-weight: 500; letter-spacing: -0.01em; line-height: 1.1; margin: 0; }
 
   /* ------------------------------------------------------------- barra -- */
-  .bar {
-    position: fixed; z-index: var(--sc-z-chrome); inset: 0 0 auto 0;
-    height: var(--nav-h);
-    padding: env(safe-area-inset-top) var(--sc-gutter) 0;
-    display: flex; align-items: center; justify-content: space-between;
-    color: #F3ECE4;
-    transition: color var(--sc-d-base) var(--sc-ease-out);
-  }
-  .bar.on-light { color: #1E1714; }
-  .mark { text-decoration: none; display: flex; align-items: baseline; gap: 0.6rem; }
-  .mark b { font-family: var(--sc-font-display); font-style: italic; font-weight: 480; font-size: 1.45rem; letter-spacing: -0.02em; font-variation-settings: "SOFT" 100, "WONK" 1; }
-  .mark span { font-size: var(--sc-t-xs); letter-spacing: 0.06em; opacity: 0.78; }
   .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
     min-height: 2.75rem; padding: 0 1.15rem;
@@ -83,20 +71,40 @@
   @media (hover: hover) and (pointer: fine) {
     .btn:hover { background: color-mix(in oklab, var(--sc-accent) 88%, white); box-shadow: var(--sc-e2), inset 0 1px 0 rgb(255 255 255 / 0.3); }
   }
-  .bar__cta { display: flex; gap: 0.5rem; align-items: center; }
   .wa-ico { width: 1.15rem; height: 1.15rem; flex: none; }
-  .bar .btn { background: #E3906B; color: #1A110D; }
-  .bar .btn--ghost { background: transparent; color: inherit; box-shadow: inset 0 0 0 1px color-mix(in oklab, currentColor 38%, transparent); }
-  .bar .btn--ghost:hover { background: color-mix(in oklab, currentColor 10%, transparent); }
-  .bar.on-light .btn.btn--ghost { background: transparent; color: #1E1714; }
   .contact { display: grid; justify-items: center; gap: var(--sc-4); text-align: center; margin-top: clamp(3rem, 6vw, 5rem); }
   .contact p { margin: 0; font-family: var(--sc-font-display); font-variation-settings: "SOFT" 100, "opsz" 72; font-size: var(--sc-t-xl); line-height: 1.2; letter-spacing: -0.015em; max-width: 22ch; text-wrap: balance; }
   .btn--wa { min-height: 3.1rem; padding: 0 1.4rem; font-size: var(--sc-t-base); }
   .contact__num { font-size: var(--sc-t-sm); color: var(--sc-ink-soft); font-variant-numeric: tabular-nums; }
-  .bar.on-light .btn { background: #A6492B; color: #FFF7F1; }
-  @media (max-width: 520px) { .mark span { display: none; } .bar .btn { min-height: 2.75rem; padding: 0 1rem; } .bar .btn--ghost { padding: 0; width: 2.75rem; } .bar .btn--ghost span { display: none; } }
 
   /* WhatsApp ao alcance do polegar: só no celular, depois da vela, some perto do botão grande de contato. */
+  /* Instagram: o único elemento fixo no topo. Vazado, troca de cor com o fundo. */
+  .ig {
+    position: fixed; z-index: var(--sc-z-chrome);
+    top: calc(1rem + env(safe-area-inset-top)); right: calc(var(--sc-gutter) + env(safe-area-inset-right));
+    width: 2.75rem; height: 2.75rem; border-radius: 50%;
+    display: grid; place-items: center;
+    color: #F3ECE4;
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, currentColor 38%, transparent);
+    background: rgb(20 16 14 / 0.25);
+    transition: color var(--sc-d-base) var(--sc-ease-out), background-color 160ms var(--sc-ease-out), scale 120ms var(--sc-ease-out);
+  }
+  .ig svg { width: 1.3rem; height: 1.3rem; }
+  .ig.on-light { color: #1E1714; background: rgb(242 237 230 / 0.4); }
+  .ig:active { scale: 0.94; }
+  @media (hover: hover) and (pointer: fine) { .ig:hover { background: color-mix(in oklab, currentColor 14%, transparent); } }
+  @media (max-width: 520px) { .ig { right: calc(1rem + env(safe-area-inset-right)); } }
+
+  .hero-eyebrow { margin: 0 0 var(--sc-5) !important; font-size: var(--sc-t-sm) !important; letter-spacing: 0.04em; color: var(--sc-ink-soft); }
+  .hero-eyebrow b { font-family: var(--sc-font-display); font-style: italic; font-weight: 480; font-size: 1.35em; letter-spacing: -0.01em; color: var(--sc-ink); font-variation-settings: "SOFT" 100, "WONK" 1; }
+  .hero-link {
+    display: inline-flex; align-items: center; gap: 0.45rem; margin-top: var(--sc-5); min-height: 2.75rem;
+    color: var(--sc-accent); font-weight: 560; text-decoration: none;
+    border-bottom: 1px solid color-mix(in oklab, var(--sc-accent) 45%, transparent);
+  }
+  .hero-link span { transition: transform 200ms var(--sc-ease-out); }
+  @media (hover: hover) and (pointer: fine) { .hero-link:hover span { transform: translateX(4px); } }
+
   .fab {
     position: fixed; z-index: var(--sc-z-chrome);
     right: calc(1rem + env(safe-area-inset-right)); bottom: calc(1rem + env(safe-area-inset-bottom));
@@ -110,10 +118,8 @@
   .fab .wa-ico { width: 1.6rem; height: 1.6rem; }
   .fab.show { opacity: 1; transform: none; pointer-events: auto; }
   .fab:active { transform: scale(0.94); }
-  @media (max-width: 860px) {
-    .fab { display: grid; }
-    .bar.fab-on .btn--ghost { display: none; }
-  }
+  .fab { display: grid; }
+  @media (min-width: 861px) { .fab { right: calc(1.5rem + env(safe-area-inset-right)); bottom: calc(1.5rem + env(safe-area-inset-bottom)); } }
   @media (prefers-reduced-motion: reduce) { .fab { transition: opacity 200ms linear; transform: none; } }
 
   /* --------------------------------------------- ato 1: hero + anatomia -- */
@@ -261,7 +267,9 @@
   .ln { display: inline-block; }
   @media (prefers-reduced-motion: no-preference) {
     .hero-copy .ln { animation: lineIn 900ms var(--sc-ease-out) both; animation-delay: calc(120ms + var(--l, 0) * 110ms); }
-    .hero-copy > p { animation: lineIn 900ms var(--sc-ease-out) both; animation-delay: 480ms; }
+    .hero-copy > p, .hero-copy > .hero-link { animation: lineIn 900ms var(--sc-ease-out) both; animation-delay: 480ms; }
+    .hero-copy > .hero-eyebrow { animation-delay: 0ms; }
+    .hero-copy > .hero-link { animation-delay: 640ms; }
   }
   @keyframes lineIn { from { opacity: 0; transform: translate3d(0, 0.6em, 0); } to { opacity: 1; transform: none; } }
 
@@ -312,13 +320,7 @@
 <span data-sc-progress></span>
 <div class="sc-grain" aria-hidden="true"></div>
 
-<header class="bar" id="bar">
-  <a class="mark" href="#top" aria-label="Francinete, velas artesanais, início"><b>Francinete</b><span>velas artesanais</span></a>
-  <nav class="bar__cta">
-    <a class="btn btn--ghost" href="https://wa.me/5561999092511?text=Ol%C3%A1%2C%20Francinete%21%20Vi%20o%20site%20e%20queria%20tirar%20uma%20d%C3%BAvida%20sobre%20os%20cursos%20de%20velas." target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2a8.7 8.7 0 0 0-7.5 13.1L3.3 20.8l4.6-1.2A8.7 8.7 0 1 0 12 3.2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.1 8.2c.2-.4.4-.4.7-.4h.5c.2 0 .4 0 .5.4l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.6 1 1.4 1.8 2.4 2.4.2.1.4.1.5 0l.6-.7c.2-.2.4-.2.6-.1l1.6.7c.3.1.3.3.3.5 0 .9-.6 1.6-1.5 1.8-.8.1-2.3-.1-4.2-1.7-1.6-1.4-2.4-2.9-2.6-3.8-.2-.9.2-1.7.5-2.4z" fill="currentColor"/></svg><span>WhatsApp</span></a>
-    <a class="btn" href="#cursos">Ver os cursos</a>
-  </nav>
-</header>
+<a class="ig" id="ig" href="https://www.instagram.com/france.arte" target="_blank" rel="noopener" aria-label="Instagram da Francinete (@france.arte)" title="@france.arte"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5.2"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.4" cy="6.6" r="1.15" fill="currentColor" stroke="none"/></svg></a>
 
 <a class="fab" id="fab" href="https://wa.me/5561999092511?text=Ol%C3%A1%2C%20Francinete%21%20Vi%20o%20site%20e%20queria%20tirar%20uma%20d%C3%BAvida%20sobre%20os%20cursos%20de%20velas." target="_blank" rel="noopener" aria-label="Falar com a Francinete no WhatsApp"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2a8.7 8.7 0 0 0-7.5 13.1L3.3 20.8l4.6-1.2A8.7 8.7 0 1 0 12 3.2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.1 8.2c.2-.4.4-.4.7-.4h.5c.2 0 .4 0 .5.4l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.6 1 1.4 1.8 2.4 2.4.2.1.4.1.5 0l.6-.7c.2-.2.4-.2.6-.1l1.6.7c.3.1.3.3.3.5 0 .9-.6 1.6-1.5 1.8-.8.1-2.3-.1-4.2-1.7-1.6-1.4-2.4-2.9-2.6-3.8-.2-.9.2-1.7.5-2.4z" fill="currentColor"/></svg></a>
 
@@ -455,8 +457,10 @@
 
       <div class="peak__copy">
         <div class="hero-copy">
+          <p class="hero-eyebrow"><b>Francinete</b> · velas artesanais</p>
           <h1 class="sc-display">Toda vela guarda uma <em>aula</em>.</h1>
           <p>Aprenda com a Francinete a fazer velas artesanais, peça por peça, do pavio à chama.</p>
+          <a class="hero-link" href="#cursos">Ver os cursos <span aria-hidden="true">→</span></a>
         </div>
 
         <div class="turn-copy">
@@ -651,7 +655,7 @@
 
     <footer class="foot">
       <span><b>Francinete</b> · velas artesanais</span>
-      <span>WhatsApp <a href="https://wa.me/5561999092511" target="_blank" rel="noopener">(61) 99909-2511</a></span>
+      <span>WhatsApp <a href="https://wa.me/5561999092511" target="_blank" rel="noopener">(61) 99909-2511</a> · Instagram <a href="https://www.instagram.com/france.arte" target="_blank" rel="noopener">@france.arte</a></span>
       <span>Ilustrações desenhadas para este site. Fotos: Pexels. © 2026</span>
     </footer>
   </section>
@@ -670,7 +674,7 @@
   var peak = document.getElementById('anatomia');
   var svg = document.getElementById('vela');
   var halo = document.getElementById('halo');
-  var bar = document.getElementById('bar');
+  var bar = document.getElementById('ig');
   var flakes = document.querySelector('.peak__flakes');
   var glow = document.querySelector('.peak__glow');
   var stage = peak.querySelector('[data-sc-stage]');
@@ -890,8 +894,8 @@
     bar.classList.toggle('on-light', onLight);
 
     var pr = peak.getBoundingClientRect(), cr2 = contactEl.getBoundingClientRect();
-    var fabOn = mobileMQ.matches && pr.bottom < innerHeight * 0.5 && !(cr2.top < innerHeight && cr2.bottom > 0);
-    if (fabOn !== lastFab) { fab.classList.toggle('show', fabOn); bar.classList.toggle('fab-on', fabOn); lastFab = fabOn; }
+    var fabOn = pr.bottom < innerHeight * 0.5 && !(cr2.top < innerHeight && cr2.bottom > 0);
+    if (fabOn !== lastFab) { fab.classList.toggle('show', fabOn); lastFab = fabOn; }
 
     if (!closeLit) {
       var cr = closeHost.getBoundingClientRect();
