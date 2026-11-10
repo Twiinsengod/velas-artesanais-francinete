@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Francinete · velas artesanais</title>
-<meta name="description" content="Aprenda com a Francinete a fazer velas artesanais, peça por peça: curso online em vídeo ou aula presencial.">
+<meta name="description" content="Aprenda a fazer velas artesanais com a Francinete, em aulas presenciais em Taguatinga Norte, Brasília.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Francinete · velas artesanais">
 <meta property="og:title" content="Francinete · velas artesanais">
-<meta property="og:description" content="Aprenda a fazer velas artesanais, peça por peça: curso online em vídeo ou aula presencial em Brasília.">
+<meta property="og:description" content="Aprenda a fazer velas artesanais com a Francinete, em aulas presenciais em Taguatinga Norte, Brasília.">
 <!-- Se o site ganhar domínio próprio, troque o endereço abaixo e o og:url. -->
 <meta property="og:url" content="https://velas-artesanais-francinete.pages.dev/">
 <meta property="og:image" content="https://velas-artesanais-francinete.pages.dev/assets/og.jpg">
@@ -309,7 +309,17 @@
     font-size: var(--sc-t-sm); color: var(--sc-ink-soft);
   }
   .foot b { font-family: var(--sc-font-display); font-style: italic; font-weight: 480; font-size: 1.2rem; color: var(--sc-ink); font-variation-settings: "SOFT" 100, "WONK" 1; }
-  @media (max-width: 760px) { .offers { grid-template-columns: 1fr; } }
+  .offers { grid-template-columns: 1fr; max-width: 54rem; }
+  .offer--solo { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; }
+  .offer__buy { display: flex; flex-direction: column; align-items: flex-start; gap: var(--sc-3); padding-left: clamp(1.5rem, 4vw, 3rem); border-left: 1px solid color-mix(in oklab, currentColor 14%, transparent); }
+  .offer__buy .price { font-size: clamp(2.4rem, 1.6rem + 2vw, 3.2rem); margin: 0; white-space: nowrap; }
+  .offer__chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .offer__note { margin: 0; font-size: var(--sc-t-sm); color: var(--sc-ink-soft); }
+  .offer__buy .btn { margin-top: var(--sc-2); }
+  @media (max-width: 760px) {
+    .offer--solo { grid-template-columns: 1fr; }
+    .offer__buy { padding-left: 0; border-left: 0; padding-top: var(--sc-5); border-top: 1px solid color-mix(in oklab, currentColor 14%, transparent); }
+  }
 
   .close__candle .flame-ignite { transform-box: fill-box; transform-origin: 50% 100%; transform: scale(0.25); opacity: 0; transition: transform 700ms var(--sc-ease-out) 200ms, opacity 500ms var(--sc-ease-out) 200ms; }
   .close__candle.lit .flame-ignite { transform: scale(1); opacity: 1; }
@@ -459,25 +469,25 @@
         <div class="hero-copy">
           <p class="hero-eyebrow"><b>Francinete</b> · velas artesanais</p>
           <h1 class="sc-display">Toda vela guarda uma <em>aula</em>.</h1>
-          <p>Aprenda com a Francinete a fazer velas artesanais, peça por peça, do pavio à chama.</p>
-          <a class="hero-link" href="#cursos">Ver os cursos <span aria-hidden="true">→</span></a>
+          <p>Aprenda com a Francinete a fazer velas artesanais, do pavio à chama.</p>
+          <a class="hero-link" href="#cursos">Ver a aula presencial <span aria-hidden="true">→</span></a>
         </div>
 
         <div class="turn-copy">
-          <p class="turn">Por fora, parece simples. Por dentro, são <em>sete escolhas</em>.</p>
-          <p>Vamos abrir esta vela e olhar cada uma delas, na ordem em que você vai aprender.</p>
+          <p class="turn">Uma vela artesanal pede <em>sete escolhas</em>.</p>
+          <p>A vela se abre na ordem em que você aprende cada uma na aula.</p>
         </div>
 
         <article class="part">
           <p class="part__name">Tampa</p>
           <h2 class="sc-display">A tampa guarda o perfume.</h2>
-          <p>Fechada, ela segura o aroma da cera entre um uso e outro e protege a superfície da poeira. Madeira ou metal, sempre do diâmetro exato do pote.</p>
+          <p>Fechada, segura o aroma entre um uso e outro e protege a cera da poeira. Pode ser de madeira ou de metal, no diâmetro exato do pote.</p>
         </article>
 
         <article class="part">
           <p class="part__name">Pavio e chama</p>
           <h2 class="sc-display">O pavio decide como a vela queima.</h2>
-          <p>Algodão ou madeira, na espessura certa para a largura do pote. Fino demais, a chama afoga e cava um túnel na cera. Grosso demais, ela fumaça. É a escolha mais técnica da vela.</p>
+          <p>Pode ser de algodão ou de madeira, na espessura certa para a largura do pote. Fino demais, a chama afoga e cava um túnel na cera; grosso demais, solta fumaça. É a parte mais técnica da vela.</p>
         </article>
 
         <article class="part">
@@ -501,13 +511,13 @@
         <article class="part">
           <p class="part__name">Recipiente</p>
           <h2 class="sc-display">O recipiente é para ficar.</h2>
-          <p>Vidro âmbar ou cerâmica, que aguentam o calor e protegem a fragrância da luz. Depois da última queima, ele vira vaso, porta-pincel ou pote de novo.</p>
+          <p>Vidro âmbar ou cerâmica, que aguentam o calor e protegem a fragrância da luz. Depois da última queima, ele vira vaso ou porta-pincel.</p>
         </article>
 
         <article class="part">
           <p class="part__name">Feito à mão</p>
-          <h2 class="sc-display">E o que não se compra: a sua mão.</h2>
-          <p>Rótulo, selo e lote pequeno. Cada vela sai um pouco diferente da outra, e é isso que faz alguém guardar o pote.</p>
+          <h2 class="sc-display">Nenhuma vela sai igual à outra.</h2>
+          <p>Rótulo e selo são feitos à mão, em lotes pequenos.</p>
         </article>
       </div>
     </div>
@@ -547,7 +557,7 @@
               <path d="M150 70c-6-8 6-14 0-24M162 74c-6-8 6-14 0-24" opacity=".45"/>
             </svg>
             </figure>
-            <div><h3>Perfumar</h3><p>A essência entra na temperatura certa, para o aroma ficar na vela e não no ar da cozinha.</p></div>
+            <div><h3>Perfumar</h3><p>A essência entra na temperatura certa, para o aroma não evaporar.</p></div>
           </li>
           <li class="step" data-sc-in>
             <figure aria-hidden="true">
@@ -585,12 +595,12 @@
               <path d="M62 112h76" stroke="#EFE6DA" stroke-width="10" opacity=".7"/>
             </svg>
             </figure>
-            <div><h3>Acender</h3><p>A cera descansa, o aroma assenta, e só então vem a primeira queima.</p></div>
+            <div><h3>Acender</h3><p>Depois que a cera descansa e o aroma assenta, vem a primeira queima.</p></div>
           </li>
       </ol>
       <div class="lesson__end" data-sc-in data-sc-stagger="90">
         <p>Você sai da aula com a sua primeira vela, pronta para acender.</p>
-        <a class="btn" href="#cursos">Ver os cursos</a>
+        <a class="btn" href="#cursos">Ver a aula presencial</a>
       </div>
     </div>
   </section>
@@ -599,9 +609,9 @@
   <section class="who ground-light" data-sc-act="flow" data-sc-drift="#F2EDE6">
     <div class="sc-wrap who__grid">
       <div class="who__txt" data-sc-in data-sc-stagger="110">
-        <h2 class="sc-display">Quem ensina é quem faz.</h2>
+        <h2 class="sc-display">Quem é a Francinete</h2>
         <p>Comecei a fazer velas por hobby, testando cera, pavio e aroma até acertar a queima. Aos poucos, as amigas começaram a pedir para aprender.</p>
-        <p>Hoje eu ensino o que aprendi errando e acertando, sem segredo guardado. Você não precisa de experiência, só de vontade de sujar as mãos de cera.</p>
+        <p>Hoje ensino tudo o que aprendi nesses testes, inclusive os erros. Para fazer a aula, não precisa ter experiência.</p>
         <p class="sig">Francinete</p>
       </div>
       <figure data-sc-reveal="up" data-sc-reveal-at="0.04 0.4">
@@ -616,34 +626,27 @@
       <div class="close__head" data-sc-in data-sc-stagger="70">
         <div class="close__candle" id="closeCandle" aria-hidden="true"></div>
         <h2 class="sc-display">Agora é a sua vez de <em>acender</em>.</h2>
-        <p>Escolha como você quer aprender.</p>
+        <p>Aulas presenciais em Taguatinga Norte, Brasília.</p>
       </div>
 
       <div class="offers" data-sc-in data-sc-stagger="80">
-        <article class="offer">
-          <p class="offer__kind">Online</p>
-          <h3>Curso em vídeo</h3>
-          <p>Cinco aulas gravadas para assistir no seu ritmo, de casa.</p>
-          <ul>
-            <li>Assista quando e onde quiser</li>
-            <li>Lista de materiais para começar em casa</li>
-            <li>Do derretimento à primeira queima</li>
-          </ul>
-          <div class="offer__meta"><span class="price">R$ 65<small>,00</small></span><span class="chip">5 aulas</span></div>
-          <a class="btn" href="https://wa.me/5561999092511?text=Ol%C3%A1%2C%20Francinete%21%20Quero%20o%20curso%20online%20de%20velas%20artesanais%20%28R%24%2065%2C00%29." target="_blank" rel="noopener" data-link="curso-online" data-sc-magnet="0.24">Quero o curso online</a>
-        </article>
-
-        <article class="offer offer--alt">
-          <p class="offer__kind">Presencial</p>
-          <h3>Aula na bancada</h3>
-          <p>Duas horas de mãos na massa em Brasília, ao lado da Francinete.</p>
-          <ul>
-            <li>Materiais inclusos</li>
-            <li>Dúvidas resolvidas na hora, com a cera na mão</li>
-            <li>Você leva suas velas para casa</li>
-          </ul>
-          <div class="offer__meta"><span class="price">R$ 150<small>,00</small></span><span class="chip">Brasília</span><span class="chip">2 horas</span></div>
-          <a class="btn" href="https://wa.me/5561999092511?text=Ol%C3%A1%2C%20Francinete%21%20Quero%20a%20aula%20presencial%20de%20velas%20artesanais%20em%20Bras%C3%ADlia%20%28R%24%20150%2C00%29." target="_blank" rel="noopener" data-link="aula-presencial" data-sc-magnet="0.24">Quero a aula presencial</a>
+        <article class="offer offer--alt offer--solo">
+          <div class="offer__info">
+            <p class="offer__kind">Presencial</p>
+            <h3>Aula na bancada</h3>
+            <p>Duas horas de mãos na massa ao lado da Francinete.</p>
+            <ul>
+              <li>Materiais inclusos</li>
+              <li>Dúvidas resolvidas na hora, com a cera na mão</li>
+              <li>Você leva suas velas para casa</li>
+            </ul>
+          </div>
+          <div class="offer__buy">
+            <span class="price">R$ 150<small>,00</small></span>
+            <div class="offer__chips"><span class="chip">Taguatinga Norte, Brasília</span><span class="chip">2 horas</span></div>
+            <p class="offer__note">Próximas turmas: consulte pelo WhatsApp.</p>
+            <a class="btn" href="https://wa.me/5561999092511?text=Ol%C3%A1%2C%20Francinete%21%20Quero%20fazer%20a%20aula%20presencial%20de%20velas%20artesanais%20em%20Taguatinga%20Norte%20%28R%24%20150%2C00%29.%20Quando%20%C3%A9%20a%20pr%C3%B3xima%20turma%3F" target="_blank" rel="noopener" data-link="aula-presencial" data-sc-magnet="0.24">Quero fazer a aula</a>
+          </div>
         </article>
       </div>
 

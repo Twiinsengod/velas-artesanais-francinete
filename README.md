@@ -1,6 +1,6 @@
 # Francinete · velas artesanais
 
-Site de uma página para os cursos de velas artesanais da Francinete: curso online em vídeo e aula presencial em Brasília.
+Site de uma página para as aulas presenciais de velas artesanais da Francinete, em Taguatinga Norte, Brasília.
 
 Enquanto a pessoa rola a página, uma vela desenhada em código se desmonta peça por peça (tampa, pavio, fragrância, cera, cumbuca de alumínio, recipiente e rótulo), e cada peça explica uma parte da vela artesanal.
 
