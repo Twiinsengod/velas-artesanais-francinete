@@ -15,7 +15,7 @@
 <meta property="og:image" content="https://velas-artesanais-francinete.pages.dev/assets/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Vela artesanal acesa em pote de vidro âmbar, com o título Toda vela guarda uma aula">
+<meta property="og:image:alt" content="Vela artesanal acesa em copo de vidro, com o título Toda vela guarda uma aula">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#14100E">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2314100E'/><path d='M16 6c-3 4-3 7 0 9 3-2 3-5 0-9z' fill='%23E3906B'/><rect x='10' y='16' width='12' height='11' rx='2' fill='%23EDE4D8'/></svg>">
@@ -160,6 +160,8 @@
   .part p { margin-top: var(--sc-5); max-width: 40ch; color: var(--sc-ink-soft); }
 
   /* Peças: a transição do halo e da chama, nunca da posição (o scroll é o tempo). */
+  .pool { opacity: 0; }
+  .close__candle .pool { opacity: 0.95; }
   #vela .piece { transition: opacity 260ms var(--sc-ease-out); }
   #vela .flame-ignite { transform-box: fill-box; transform-origin: 50% 100%; transform: scale(0.25); opacity: 0; transition: transform 520ms var(--sc-ease-out), opacity 380ms var(--sc-ease-out); }
   #vela.lit .flame-ignite { transform: scale(1); opacity: 1; }
@@ -359,8 +361,8 @@
                 <stop offset="1" stop-color="#3A1A09"/>
               </linearGradient>
               <linearGradient id="gWax" x1="0" x2="1">
-                <stop offset="0" stop-color="#C9BAA8"/><stop offset=".32" stop-color="#F2EBE1"/>
-                <stop offset=".68" stop-color="#E9DFD2"/><stop offset="1" stop-color="#BFAF9C"/>
+                <stop offset="0" stop-color="#D9CDB9"/><stop offset=".3" stop-color="#F6EFE2"/>
+                <stop offset=".7" stop-color="#EFE5D4"/><stop offset="1" stop-color="#D2C4AE"/>
               </linearGradient>
               <radialGradient id="gWaxTop" cx=".45" cy=".4" r=".7">
                 <stop offset="0" stop-color="#FAF5EE"/><stop offset="1" stop-color="#DDD0BF"/>
@@ -385,20 +387,34 @@
               <radialGradient id="gHalo">
                 <stop offset="0" stop-color="#E3906B" stop-opacity=".30"/><stop offset=".6" stop-color="#E3906B" stop-opacity=".08"/><stop offset="1" stop-color="#E3906B" stop-opacity="0"/>
               </radialGradient>
+              <linearGradient id="gGlassClear" x1="0" x2="1">
+                <stop offset="0" stop-color="#FFFFFF" stop-opacity=".24"/><stop offset=".12" stop-color="#FFFFFF" stop-opacity=".07"/>
+                <stop offset=".5" stop-color="#FFFFFF" stop-opacity=".02"/><stop offset=".86" stop-color="#FFFFFF" stop-opacity=".08"/>
+                <stop offset="1" stop-color="#FFFFFF" stop-opacity=".26"/>
+              </linearGradient>
+              <linearGradient id="gKraft" x1="0" x2="1">
+                <stop offset="0" stop-color="#B08659"/><stop offset=".5" stop-color="#CFA67A"/><stop offset="1" stop-color="#AE8457"/>
+              </linearGradient>
+              <linearGradient id="gBamboo" x1="0" x2="1">
+                <stop offset="0" stop-color="#A47B4B"/><stop offset=".45" stop-color="#DAB987"/><stop offset="1" stop-color="#AC8352"/>
+              </linearGradient>
+              <radialGradient id="gBambooTop" cx=".42" cy=".38" r=".75">
+                <stop offset="0" stop-color="#EDD3A9"/><stop offset="1" stop-color="#C39D6B"/>
+              </radialGradient>
               <filter id="fSoft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10"/></filter>
             </defs>
 
             <circle id="halo" cx="400" cy="440" r="170" fill="url(#gHalo)" opacity="0"/>
             <ellipse cx="400" cy="566" rx="150" ry="17" fill="#000" opacity=".38" filter="url(#fSoft)"/>
 
-            <!-- cumbuca de alumínio -->
+            <!-- cumbuca de alumínio: fica atrás da cera, escondida quando a vela está montada -->
             <g class="piece" id="p-cup">
-              <path d="M305,350 L315,546 Q400,561 485,546 L495,350 Z" fill="url(#gAlu)"/>
+              <path d="M305,366 L314,538 Q400,552 486,538 L495,366 Z" fill="url(#gAlu)"/>
               <g stroke="#5D646B" stroke-opacity=".22" stroke-width="1.4">
-                <path d="M322,356V545M338,357V548M354,358V550M370,358V551M386,358V552M402,358V552M418,358V552M434,358V551M450,358V550M466,357V548M480,356V546"/>
+                <path d="M322,371V536M338,372V539M354,373V541M370,373V542M386,373V543M402,373V543M418,373V543M434,373V542M450,373V541M466,372V539M480,371V537"/>
               </g>
-              <ellipse cx="400" cy="350" rx="95" ry="13" fill="#9EA4AA"/>
-              <ellipse cx="400" cy="350" rx="95" ry="13" fill="none" stroke="#F5F7F9" stroke-width="3"/>
+              <ellipse cx="400" cy="366" rx="95" ry="13" fill="#9EA4AA"/>
+              <ellipse cx="400" cy="366" rx="95" ry="13" fill="none" stroke="#F5F7F9" stroke-width="3"/>
             </g>
 
             <!-- pavio + chama -->
@@ -428,41 +444,48 @@
               </g>
             </g>
 
-            <!-- cera -->
+            <!-- cera: creme, encostada no vidro, cobre a cumbuca -->
             <g class="piece" id="p-wax">
-              <path d="M312,362 L320,539 Q400,553 480,539 L488,362 Z" fill="url(#gWax)"/>
-              <g stroke="#9C8D7A" stroke-opacity=".14" stroke-width="1.2"><path d="M330,368V540M350,369V543M370,369V545M390,369V546M410,369V546M430,369V545M450,369V543M470,368V540"/></g>
-              <ellipse cx="400" cy="362" rx="88" ry="12" fill="url(#gWaxTop)"/>
+              <path d="M300,362 L302,544 Q400,558 498,544 L500,362 Z" fill="url(#gWax)"/>
+              <ellipse cx="400" cy="362" rx="100" ry="13" fill="url(#gWaxTop)"/>
+              <ellipse class="pool" cx="401" cy="363" rx="44" ry="6" fill="#F3DFB8" stroke="#E2C795" stroke-width="1.2"/>
               <circle cx="400" cy="362" r="2.6" fill="#6E5E52"/>
             </g>
 
-            <!-- recipiente de vidro âmbar -->
+            <!-- recipiente: copo de vidro transparente -->
             <g class="piece" id="p-jar">
-              <path d="M295,330 L298,548 Q400,572 502,548 L505,330 A105,15 0 0 1 295,330 Z" fill="url(#gGlass)" opacity=".8"/>
-              <ellipse cx="400" cy="553" rx="101" ry="12" fill="#2E1407" opacity=".45"/>
-              <ellipse cx="400" cy="330" rx="105" ry="15" fill="#C27A3E" fill-opacity=".16" stroke="#E9B47E" stroke-opacity=".6" stroke-width="2"/>
-              <path d="M318,350 L321,532" stroke="#FFEBD6" stroke-opacity=".3" stroke-width="9" stroke-linecap="round"/>
-              <path d="M482,356 L479,520" stroke="#FFEBD6" stroke-opacity=".18" stroke-width="3" stroke-linecap="round"/>
+              <path d="M295,330 L298,548 Q400,572 502,548 L505,330 A105,15 0 0 1 295,330 Z" fill="url(#gGlassClear)"/>
+              <path d="M298,544 Q400,568 502,544 L502,555 Q400,579 298,555 Z" fill="#FFFFFF" fill-opacity=".14" stroke="#FFFFFF" stroke-opacity=".28" stroke-width="1"/>
+              <path d="M295,330 L298,548 Q400,572 502,548 L505,330" fill="none" stroke="#2A1D15" stroke-opacity=".22" stroke-width="3.2"/>
+              <path d="M295,330 L298,548 Q400,572 502,548 L505,330" fill="none" stroke="#FFFFFF" stroke-opacity=".42" stroke-width="1.5"/>
+              <ellipse cx="400" cy="330" rx="105" ry="15" fill="none" stroke="#2A1D15" stroke-opacity=".2" stroke-width="3"/>
+              <ellipse cx="400" cy="330" rx="105" ry="15" fill="#FFFFFF" fill-opacity=".05" stroke="#FFFFFF" stroke-opacity=".6" stroke-width="1.6"/>
+              <ellipse cx="400" cy="331" rx="100" ry="12.5" fill="none" stroke="#FFFFFF" stroke-opacity=".22" stroke-width="1"/>
+              <path d="M316,348 L319,530" stroke="#FFFFFF" stroke-opacity=".38" stroke-width="8" stroke-linecap="round"/>
+              <path d="M330,352 L332,470" stroke="#FFFFFF" stroke-opacity=".14" stroke-width="3" stroke-linecap="round"/>
+              <path d="M484,352 L481,522" stroke="#FFFFFF" stroke-opacity=".24" stroke-width="3" stroke-linecap="round"/>
             </g>
 
-            <!-- feito à mão: rótulo -->
+            <!-- feito à mão: rótulo kraft com o selo -->
             <g class="piece" id="p-label">
-              <path d="M297,430 Q400,452 503,430 L503,506 Q400,528 297,506 Z" fill="#EFE6DA"/>
-              <path d="M305,437 Q400,458 495,437 L495,499 Q400,520 305,499 Z" fill="none" stroke="#B4532F" stroke-opacity=".45" stroke-width="1.2"/>
-              <path d="M330,472 Q350,475 368,476 M432,476 Q450,475 470,472" stroke="#B4532F" stroke-opacity=".5" stroke-width="1.2" fill="none"/>
-              <circle cx="400" cy="474" r="23" fill="#B4532F"/>
-              <circle cx="400" cy="474" r="18.5" fill="none" stroke="#F4DCCD" stroke-opacity=".6" stroke-width="1"/>
-              <text x="400" y="483" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="25" fill="#FBEFE6">F</text>
+              <path d="M298,432 Q400,453 502,432 L502,500 Q400,521 298,500 Z" fill="url(#gKraft)"/>
+              <path d="M306,439 Q400,459 494,439 L494,494 Q400,514 306,494 Z" fill="none" stroke="#5E3F24" stroke-opacity=".45" stroke-width="1.1"/>
+              <g fill="#7A5634" fill-opacity=".28"><circle cx="322" cy="452" r="1"/><circle cx="345" cy="489" r="1.2"/><circle cx="452" cy="458" r="1"/><circle cx="478" cy="485" r="1.1"/><circle cx="366" cy="466" r=".9"/><circle cx="430" cy="497" r="1"/></g>
+              <path d="M330,474 Q350,477 368,478 M432,478 Q450,477 470,474" stroke="#5E3F24" stroke-opacity=".5" stroke-width="1.2" fill="none"/>
+              <circle cx="400" cy="475" r="22" fill="#B4532F"/>
+              <circle cx="400" cy="475" r="17.5" fill="none" stroke="#F4DCCD" stroke-opacity=".6" stroke-width="1"/>
+              <text x="400" y="484" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="24" fill="#FBEFE6">F</text>
             </g>
 
-            <!-- tampa de madeira -->
+            <!-- tampa de madeira clara -->
             <g class="piece" id="p-lid">
-              <path d="M294,322 L294,339 A106,15 0 0 0 506,339 L506,322 Z" fill="url(#gWood)"/>
-              <ellipse cx="400" cy="322" rx="106" ry="15" fill="url(#gWoodTop)"/>
-              <g fill="none" stroke="#2C190E" stroke-opacity=".32" stroke-width="1.1">
+              <path d="M294,322 L294,338 A106,15 0 0 0 506,338 L506,322 Z" fill="url(#gBamboo)"/>
+              <path d="M298,338 A102,13 0 0 0 502,338 L502,341 A102,13 0 0 1 298,341 Z" fill="#EDE6DA" fill-opacity=".75"/>
+              <ellipse cx="400" cy="322" rx="106" ry="15" fill="url(#gBambooTop)"/>
+              <g fill="none" stroke="#7E5A33" stroke-opacity=".3" stroke-width="1.1">
                 <ellipse cx="398" cy="322" rx="76" ry="10"/><ellipse cx="402" cy="322" rx="48" ry="6.4"/><ellipse cx="399" cy="322" rx="22" ry="3"/>
               </g>
-              <path d="M300,320 Q400,333 500,320" stroke="#B88A66" stroke-opacity=".35" stroke-width="1.5" fill="none"/>
+              <path d="M300,320 Q400,333 500,320" stroke="#FFF3DD" stroke-opacity=".45" stroke-width="1.5" fill="none"/>
             </g>
           </svg>
         </div>
@@ -519,7 +542,7 @@
         <article class="part">
           <p class="part__name">Recipiente</p>
           <h2 class="sc-display">O recipiente é para ficar.</h2>
-          <p>Vidro âmbar ou cerâmica, que aguentam o calor e protegem a fragrância da luz. Depois da última queima, ele vira vaso ou porta-pincel.</p>
+          <p>Vidro ou cerâmica, que aguentam o calor da chama. Depois da última queima, ele vira vaso ou porta-pincel.</p>
         </article>
 
         <article class="part">
