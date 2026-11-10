@@ -226,7 +226,7 @@
   :root { --amp: 1; }
   @media (max-width: 860px) { :root { --amp: 0.5; } }
   @media (prefers-reduced-motion: no-preference) {
-    .who figure img {
+    .who__photo img {
       transform: translate3d(0, calc((0.5 - var(--sc-p, 0)) * 90px * var(--amp)), 0) scale(1.16);
       will-change: transform;
     }
@@ -240,12 +240,20 @@
   }
   .who h2 { font-size: var(--sc-t-3xl); max-width: 11ch; }
   .who__txt p { color: var(--sc-ink-soft); max-width: 44ch; margin: var(--sc-5) 0 0; }
-  .who__txt p.sig { font-family: var(--sc-font-display); font-style: italic; font-variation-settings: "SOFT" 100, "WONK" 1; font-size: var(--sc-t-xl); color: var(--sc-ink); margin-top: var(--sc-6); }
-  .who figure { margin: 0; border-radius: var(--sc-r-lg); overflow: hidden; background: var(--sc-surface); aspect-ratio: 4 / 5; max-height: 78svh; box-shadow: var(--sc-e3); display: grid; place-items: center; }
-  .who figure img { width: 100%; height: 100%; object-fit: cover; object-position: 58% 50%; max-width: none; }
+  /* Citação da professora: aspas grandes em terracota, texto em serifa, assinatura embaixo. */
+  .quote { margin: var(--sc-6) 0 0; position: relative; padding-left: clamp(1.25rem, 2.5vw, 2rem); border-left: 2px solid color-mix(in oklab, var(--sc-accent) 55%, transparent); }
+  .quote::before { content: "\201C"; position: absolute; left: -0.08em; top: -0.62em; font-family: var(--sc-font-display); font-size: clamp(4rem, 3rem + 3vw, 6rem); line-height: 1; color: var(--sc-accent); opacity: 0.9; transform: translateX(-100%); }
+  .quote blockquote { margin: 0; }
+  .who__txt .quote p { margin: 0; color: var(--sc-ink); font-family: var(--sc-font-display); font-style: italic; font-variation-settings: "SOFT" 100, "WONK" 0, "opsz" 36; font-size: clamp(1.1rem, 1rem + 0.45vw, 1.35rem); line-height: 1.5; max-width: 40ch; }
+  .who__txt .quote p + p { margin-top: var(--sc-4); }
+  .quote figcaption { margin-top: var(--sc-5); font-size: var(--sc-t-sm); color: var(--sc-ink-soft); letter-spacing: 0.02em; }
+  .quote figcaption b { font-family: var(--sc-font-display); font-style: italic; font-weight: 500; font-size: 1.35em; color: var(--sc-ink); font-variation-settings: "SOFT" 100, "WONK" 1; }
+  @media (max-width: 860px) { .quote::before { transform: none; left: auto; right: 0; top: -0.75em; opacity: 0.35; } }
+  .who__photo { margin: 0; border-radius: var(--sc-r-lg); overflow: hidden; background: var(--sc-surface); aspect-ratio: 4 / 5; max-height: 78svh; box-shadow: var(--sc-e3); display: grid; place-items: center; }
+  .who__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 58% 50%; max-width: none; }
   @media (max-width: 860px) {
     .who__grid { grid-template-columns: 1fr; gap: var(--sc-6); }
-    .who figure { aspect-ratio: 4 / 3; max-height: none; order: -1; }
+    .who__photo { aspect-ratio: 4 / 3; max-height: none; order: -1; }
     .who h2 { font-size: var(--sc-t-2xl); }
   }
 
@@ -610,11 +618,15 @@
     <div class="sc-wrap who__grid">
       <div class="who__txt" data-sc-in data-sc-stagger="110">
         <h2 class="sc-display">Quem é a Francinete</h2>
-        <p>Comecei a fazer velas por hobby, testando cera, pavio e aroma até acertar a queima. Aos poucos, as amigas começaram a pedir para aprender.</p>
-        <p>Hoje ensino tudo o que aprendi nesses testes, inclusive os erros. Para fazer a aula, não precisa ter experiência.</p>
-        <p class="sig">Francinete</p>
+        <figure class="quote">
+          <blockquote>
+            <p>Comecei a fazer velas por hobby. Fui testando cera, pavio e aroma até a vela queimar do jeito certo, e aos poucos as amigas começaram a pedir para aprender.</p>
+            <p>Hoje ensino o que aprendi nesses testes, e os erros também entram na aula. Ninguém precisa chegar com experiência.</p>
+          </blockquote>
+          <figcaption><b>Francinete</b>, professora</figcaption>
+        </figure>
       </div>
-      <figure data-sc-reveal="up" data-sc-reveal-at="0.04 0.4">
+      <figure class="who__photo" data-sc-reveal="up" data-sc-reveal-at="0.04 0.4">
         <img src="assets/despejar.webp" width="1400" height="934" alt="Mãos despejando cera derretida de uma jarra de inox num pote de vidro âmbar, sobre uma bancada">
       </figure>
     </div>
