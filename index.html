@@ -97,6 +97,21 @@
 
   .hero-eyebrow { margin: 0 0 var(--sc-5) !important; font-size: var(--sc-t-sm) !important; letter-spacing: 0.04em; color: var(--sc-ink-soft); }
   .hero-eyebrow b { font-family: var(--sc-font-display); font-style: italic; font-weight: 480; font-size: 1.35em; letter-spacing: -0.01em; color: var(--sc-ink); font-variation-settings: "SOFT" 100, "WONK" 1; }
+  .hero-invite {
+    margin: 0 0 var(--sc-4) !important; display: inline-flex; align-items: center; gap: 0.55rem;
+    padding: 0.45rem 0.9rem 0.45rem 0.5rem; border-radius: var(--sc-r-pill);
+    background: rgb(227 144 107 / 0.14); box-shadow: inset 0 0 0 1px rgb(227 144 107 / 0.4);
+    font-size: var(--sc-t-sm) !important; color: #F6D9C4 !important; max-width: none !important;
+  }
+  .hero-invite::before { content: ""; width: 1.6rem; height: 1.6rem; flex: none; border-radius: 50%;
+    background: #E3906B url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 4c-2 3-2 5 0 7 2-2 2-4 0-7z' fill='%231A110D'/%3E%3Crect x='8' y='12' width='8' height='8' rx='1.5' fill='%231A110D'/%3E%3C/svg%3E") center/70% no-repeat; }
+  .hero-invite b { font-family: var(--sc-font-display); font-style: italic; font-weight: 500; font-size: 1.12em; color: #FFF1E6; }
+  .hero-invite[hidden] { display: none; }
+  @media (max-width: 860px) { .hero-invite { font-size: var(--sc-t-xs) !important; margin-bottom: var(--sc-2) !important; padding: 0.3rem 0.75rem 0.3rem 0.35rem; } .hero-invite::before { width: 1.3rem; height: 1.3rem; } }
+  .res__invite { margin-top: var(--sc-2); padding-top: var(--sc-4); border-top: 1px dashed rgb(243 236 228 / 0.18); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem 1rem; }
+  .res__invite p { margin: 0; font-size: var(--sc-t-sm); color: var(--sc-ink-soft); }
+  .res__invite-btn { min-height: 2.75rem; }
+  .res__invite-btn .wa-ico { width: 1.1rem; height: 1.1rem; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .hero-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.25rem; margin-top: var(--sc-5); }
   .hero-row .hero-link { margin-top: 0; }
@@ -359,7 +374,7 @@
   .res__bubble { position: relative; padding: 0.8rem 1rem 0.9rem; background: #DCF8C6; color: #1B2A1A; border-radius: 0.9rem 0.9rem 0.25rem 0.9rem; box-shadow: 0 2px 0 rgb(0 0 0 / 0.15); }
   .res__bubble-label { display: block; font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; color: #4B6B47; margin-bottom: 0.3rem; }
   .res__bubble p { margin: 0; font-size: var(--sc-t-sm); line-height: 1.5; white-space: pre-line; }
-  .res__cta { align-self: stretch; justify-content: center; min-height: 3.25rem; font-size: var(--sc-t-base); }
+  .res__cta { align-self: stretch; justify-content: center; min-height: 3.25rem; font-size: var(--sc-t-base); white-space: normal; text-align: center; line-height: 1.25; padding-block: 0.6rem; }
   .res__cta .wa-ico { width: 1.25rem; height: 1.25rem; }
   .close__candle .lbl-name { opacity: 0; transition: opacity 400ms var(--sc-ease-out); }
   .close__candle .lbl-seal { transition: opacity 300ms var(--sc-ease-out); }
@@ -593,7 +608,8 @@
 
       <div class="peak__copy">
         <div class="hero-copy">
-          <p class="hero-eyebrow"><b>Francinete</b> · velas artesanais</p>
+          <p class="hero-eyebrow" id="heroEyebrow"><b>Francinete</b> · velas artesanais</p>
+          <p class="hero-invite" id="heroInvite" hidden></p>
           <h1 class="sc-display">Toda vela guarda uma <em>aula</em>.</h1>
           <p>Aprenda com a Francinete a fazer velas artesanais, do pavio à chama.</p>
           <div class="hero-row">
@@ -802,6 +818,10 @@
           </div>
 
           <a class="btn btn--wa res__cta" id="resCta" href="https://wa.me/5561999092511" target="_blank" rel="noopener" data-sc-magnet="0.2"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2a8.7 8.7 0 0 0-7.5 13.1L3.3 20.8l4.6-1.2A8.7 8.7 0 1 0 12 3.2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.1 8.2c.2-.4.4-.4.7-.4h.5c.2 0 .4 0 .5.4l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.6 1 1.4 1.8 2.4 2.4.2.1.4.1.5 0l.6-.7c.2-.2.4-.2.6-.1l1.6.7c.3.1.3.3.3.5 0 .9-.6 1.6-1.5 1.8-.8.1-2.3-.1-4.2-1.7-1.6-1.4-2.4-2.9-2.6-3.8-.2-.9.2-1.7.5-2.4z" fill="currentColor"/></svg>Quero minha vaga na próxima turma</a>
+          <div class="res__invite">
+            <p>Vai com alguém? A aula é melhor a dois.</p>
+            <a class="btn btn--line res__invite-btn" id="resInvite" href="https://wa.me/" target="_blank" rel="noopener"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2a8.7 8.7 0 0 0-7.5 13.1L3.3 20.8l4.6-1.2A8.7 8.7 0 1 0 12 3.2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.1 8.2c.2-.4.4-.4.7-.4h.5c.2 0 .4 0 .5.4l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.6 1 1.4 1.8 2.4 2.4.2.1.4.1.5 0l.6-.7c.2-.2.4-.2.6-.1l1.6.7c.3.1.3.3.3.5 0 .9-.6 1.6-1.5 1.8-.8.1-2.3-.1-4.2-1.7-1.6-1.4-2.4-2.9-2.6-3.8-.2-.9.2-1.7.5-2.4z" fill="currentColor"/></svg>Convidar uma amiga</a>
+          </div>
         </form>
       </article>
 
@@ -1071,6 +1091,19 @@
     var hint = document.getElementById('resHint');
     var groups = Array.prototype.slice.call(res.querySelectorAll('.res__group'));
     var heroIn = document.getElementById('heroName'), heroHint = document.getElementById('heroHint');
+    var invBtn = document.getElementById('resInvite');
+    var SITE = 'https://velas-artesanais-francinete.pages.dev/';
+    function clean(v) { return (v || '').replace(/[^A-Za-zÀ-ÿ' -]/g, '').replace(/\s+/g, ' ').trim().slice(0, 22); }
+    var convidante = '';
+    try { convidante = clean(new URLSearchParams(location.search).get('de')); } catch (e) {}
+    if (convidante) {
+      var hi = document.getElementById('heroInvite');
+      hi.innerHTML = '<span><b></b> te convidou para fazer velas juntas</span>';
+      hi.querySelector('b').textContent = convidante;
+      hi.hidden = false;
+      document.getElementById('heroEyebrow').hidden = true;
+      heroHint.textContent = 'Escreva seu nome: ele vai para o rótulo da sua vela.';
+    }
     heroIn.addEventListener('input', function () { nameIn.value = heroIn.value; update(); });
     heroIn.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); heroIn.blur(); } });
     var picks = { dia: [], periodo: [], pessoas: [] };
@@ -1092,6 +1125,7 @@
       hint.textContent = lit ? 'Essa é a vela da ' + first + '. Agora é só guardar o lugar.' : 'Escreva seu nome e acenda a sua vela.';
       var lines = ['Olá, Francinete! Quero uma vaga na próxima turma da aula presencial de velas (Taguatinga Norte).'];
       if (nome) lines.push('Nome: ' + nome);
+      if (convidante) lines.push('Vim pelo convite de: ' + convidante);
       if (picks.dia.length) lines.push('Melhor dia: ' + joinPt(picks.dia));
       if (picks.periodo.length) lines.push('Período: ' + joinPt(picks.periodo));
       if (picks.pessoas.length) lines.push('Pessoas: ' + picks.pessoas[0]);
@@ -1099,6 +1133,9 @@
       var text = lines.join('\n');
       msgEl.textContent = text;
       cta.href = 'https://wa.me/5561999092511?text=' + encodeURIComponent(text);
+      var link = SITE + (first.length >= 2 ? '?de=' + encodeURIComponent(first) : '');
+      var inv = 'Oi! Achei uma aula presencial de velas artesanais com a Francinete, em Taguatinga Norte. Bora fazer juntas? ' + link;
+      invBtn.href = 'https://wa.me/?text=' + encodeURIComponent(inv);
     }
     groups.forEach(function (g) {
       var key = g.getAttribute('data-key'), multi = g.hasAttribute('data-multi');
@@ -1112,6 +1149,11 @@
       });
     });
     nameIn.addEventListener('input', update);
+    if (convidante) {
+      var g = res.querySelector('.res__group[data-key="pessoas"]');
+      var b2 = g.querySelectorAll('button')[1];
+      b2.setAttribute('aria-pressed', 'true'); picks.pessoas = [b2.textContent];
+    }
     document.getElementById('resForm').addEventListener('submit', function (e) { e.preventDefault(); cta.click(); });
     update();
   })();
