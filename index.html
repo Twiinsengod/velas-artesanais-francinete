@@ -286,7 +286,72 @@
   /* ---------------------------------------------------- ato 4: cursos -- */
   .close { padding-block: clamp(4rem, 8vw, 8rem) 0; }
   .close__head { display: grid; justify-items: center; text-align: center; }
-  .close__candle { width: min(19rem, 60vw); aspect-ratio: 520 / 380; margin-bottom: var(--sc-5); }
+  .close__candle { width: min(26rem, 78vw); aspect-ratio: 520 / 380; }
+
+  /* Lista da próxima turma: a vela com o nome de quem visita, e a mensagem pronta. */
+  .res {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    margin: clamp(2.5rem, 5vw, 4rem) auto 0; max-width: 64rem;
+    background: #2A1D17; color: #F3ECE4; border-radius: var(--sc-r-lg); overflow: hidden;
+    box-shadow: var(--sc-e3);
+    --sc-ink: #F3ECE4; --sc-ink-soft: #C7B5A6; --sc-accent: #E3906B; --sc-accent-ink: #1A110D;
+  }
+  .res__stage, .res__form { min-width: 0; }
+  .res__stage {
+    position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sc-4);
+    padding: clamp(2rem, 4vw, 3.5rem) clamp(1.25rem, 3vw, 2.5rem);
+    background: radial-gradient(120% 80% at 50% 38%, #3B2820 0%, #24180F 70%);
+  }
+  .res__stage::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+    background: radial-gradient(42% 32% at 50% 34%, rgb(255 180 107 / 0.28), transparent 70%);
+    transition: opacity 900ms var(--sc-ease-out);
+  }
+  .res.is-lit .res__stage::before { opacity: 1; }
+  .res__hint { margin: 0; font-size: var(--sc-t-sm); color: var(--sc-ink-soft); text-align: center; min-height: 1.6em; transition: color 300ms; }
+  .res.is-lit .res__hint { color: #F3C9A9; }
+  .res__inc { list-style: none; padding: 0; margin: var(--sc-2) 0 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
+  .res__inc li { font-size: var(--sc-t-xs); padding: 0.3rem 0.7rem; border-radius: var(--sc-r-pill); background: rgb(243 236 228 / 0.08); color: #E8DACC; }
+  .res__form { display: flex; flex-direction: column; gap: var(--sc-4); padding: clamp(1.75rem, 3.5vw, 3rem); }
+  .res__form h3 { font-size: var(--sc-t-2xl); margin-top: calc(-1 * var(--sc-2)); }
+  .res__lead { margin: 0; color: var(--sc-ink-soft); font-size: var(--sc-t-sm); line-height: 1.55; }
+  .res__field { display: grid; gap: 0.4rem; }
+  .res__field--stage { width: min(20rem, 100%); }
+  .res__field--stage span { text-align: center; }
+  .res__field--stage input { text-align: center; font-family: var(--sc-font-display); font-style: italic; font-size: 1.2rem; }
+  .res__field span, .res__group legend { font-size: var(--sc-t-xs); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; color: var(--sc-ink-soft); }
+  .res__field input {
+    font: inherit; font-size: 1.05rem; color: #F3ECE4; min-height: 3rem; padding: 0 1rem;
+    background: rgb(243 236 228 / 0.06); border: 1px solid rgb(243 236 228 / 0.18); border-radius: var(--sc-r-md, 0.75rem);
+    transition: border-color 160ms, background-color 160ms;
+  }
+  .res__field input::placeholder { color: rgb(243 236 228 / 0.4); }
+  .res__field input:focus { outline: none; border-color: #E3906B; background: rgb(243 236 228 / 0.09); box-shadow: 0 0 0 3px rgb(227 144 107 / 0.25); }
+  .res__group { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.45rem; }
+  .res__group legend { margin-bottom: 0.45rem; padding: 0; }
+  .res__group button {
+    font: inherit; font-size: var(--sc-t-sm); color: #E8DACC; min-height: 2.75rem; padding: 0 1rem; cursor: pointer;
+    background: transparent; border: 1px solid rgb(243 236 228 / 0.22); border-radius: var(--sc-r-pill);
+    transition: background-color 160ms, border-color 160ms, color 160ms, scale 120ms;
+  }
+  .res__group button:active { scale: 0.96; }
+  .res__group button[aria-pressed="true"] { background: #E3906B; border-color: #E3906B; color: #1A110D; font-weight: 560; }
+  .res__group button:focus-visible { outline: 2px solid #E3906B; outline-offset: 2px; }
+  @media (hover: hover) and (pointer: fine) { .res__group button[aria-pressed="false"]:hover { border-color: rgb(243 236 228 / 0.5); } }
+  .res__bubble { position: relative; padding: 0.8rem 1rem 0.9rem; background: #DCF8C6; color: #1B2A1A; border-radius: 0.9rem 0.9rem 0.25rem 0.9rem; box-shadow: 0 2px 0 rgb(0 0 0 / 0.15); }
+  .res__bubble-label { display: block; font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; color: #4B6B47; margin-bottom: 0.3rem; }
+  .res__bubble p { margin: 0; font-size: var(--sc-t-sm); line-height: 1.5; white-space: pre-line; }
+  .res__cta { align-self: stretch; justify-content: center; min-height: 3.25rem; font-size: var(--sc-t-base); }
+  .res__cta .wa-ico { width: 1.25rem; height: 1.25rem; }
+  .close__candle .lbl-name { opacity: 0; transition: opacity 400ms var(--sc-ease-out); }
+  .close__candle .lbl-seal { transition: opacity 300ms var(--sc-ease-out); }
+  .res.has-name .close__candle .lbl-name { opacity: 1; }
+  .res.has-name .close__candle .lbl-seal { opacity: 0; }
+  @media (max-width: 860px) {
+    .res { grid-template-columns: minmax(0, 1fr); }
+    .res__stage { padding-bottom: var(--sc-5); }
+    .close__candle { width: min(20rem, 78vw); }
+  }
   .close__candle svg { width: 100%; height: 100%; overflow: visible; }
   .close h2 { font-size: var(--sc-t-3xl); max-width: 13ch; }
   .close__head > p { margin-top: var(--sc-4); color: var(--sc-ink-soft); }
@@ -671,36 +736,57 @@
   <section class="close ground-light" id="cursos" data-sc-act="flow">
     <div class="sc-wrap">
       <div class="close__head" data-sc-in data-sc-stagger="70">
-        <div class="close__candle" id="closeCandle" aria-hidden="true"></div>
         <h2 class="sc-display">Agora é a sua vez de <em>acender</em>.</h2>
-        <p>Aulas presenciais em Taguatinga Norte, Brasília.</p>
+        <p>Aula presencial em Taguatinga Norte, Brasília · 2 horas · R$ 150,00</p>
       </div>
 
-      <div class="offers" data-sc-in data-sc-stagger="80">
-        <article class="offer offer--alt offer--solo">
-          <div class="offer__info">
-            <p class="offer__kind">Presencial</p>
-            <h3>Aula na bancada</h3>
-            <p>Duas horas de mãos na massa ao lado da Francinete.</p>
-            <ul>
-              <li>Materiais inclusos</li>
-              <li>Dúvidas resolvidas na hora, com a cera na mão</li>
-              <li>Você leva suas velas para casa</li>
-            </ul>
+      <article class="res" id="reserva" data-sc-in>
+        <div class="res__stage">
+          <div class="close__candle" id="closeCandle" aria-hidden="true"></div>
+          <p class="res__hint" id="resHint">Escreva seu nome e acenda a sua vela.</p>
+          <label class="res__field res__field--stage">
+            <span>Seu nome</span>
+            <input id="resName" type="text" name="nome" maxlength="22" autocomplete="given-name" placeholder="Como você se chama?">
+          </label>
+          <ul class="res__inc">
+            <li>Materiais inclusos</li>
+            <li>Dúvidas resolvidas na hora, com a cera na mão</li>
+            <li>Você leva suas velas para casa</li>
+          </ul>
+        </div>
+
+        <form class="res__form" id="resForm" novalidate>
+          <p class="offer__kind">Lista da próxima turma</p>
+          <h3>Guarde o seu lugar</h3>
+          <p class="res__lead">Ainda não há datas fixas. Conte o que fica melhor para você, e a Francinete responde com a próxima turma.</p>
+
+
+          <fieldset class="res__group" data-key="dia" data-multi="1">
+            <legend>Melhor dia</legend>
+            <button type="button" aria-pressed="false">Dia de semana</button><button type="button" aria-pressed="false">Sábado</button><button type="button" aria-pressed="false">Domingo</button>
+          </fieldset>
+          <fieldset class="res__group" data-key="periodo" data-multi="1">
+            <legend>Período</legend>
+            <button type="button" aria-pressed="false">Manhã</button><button type="button" aria-pressed="false">Tarde</button><button type="button" aria-pressed="false">Noite</button>
+          </fieldset>
+          <fieldset class="res__group" data-key="pessoas">
+            <legend>Quantas pessoas</legend>
+            <button type="button" aria-pressed="false">Só eu</button><button type="button" aria-pressed="false">Eu + 1</button><button type="button" aria-pressed="false">3 ou mais</button>
+          </fieldset>
+
+          <div class="res__bubble" aria-live="polite">
+            <span class="res__bubble-label">Mensagem que vai para a Francinete</span>
+            <p id="resMsg"></p>
           </div>
-          <div class="offer__buy">
-            <span class="price">R$ 150<small>,00</small></span>
-            <div class="offer__chips"><span class="chip">Taguatinga Norte, Brasília</span><span class="chip">2 horas</span></div>
-            <p class="offer__note">Próximas turmas: consulte pelo WhatsApp.</p>
-            <a class="btn" href="https://wa.me/5561999092511?text=Ol%C3%A1%2C%20Francinete%21%20Quero%20fazer%20a%20aula%20presencial%20de%20velas%20artesanais%20em%20Taguatinga%20Norte%20%28R%24%20150%2C00%29.%20Quando%20%C3%A9%20a%20pr%C3%B3xima%20turma%3F" target="_blank" rel="noopener" data-link="aula-presencial" data-sc-magnet="0.24">Quero fazer a aula</a>
-          </div>
-        </article>
-      </div>
+
+          <a class="btn btn--wa res__cta" id="resCta" href="https://wa.me/5561999092511" target="_blank" rel="noopener" data-sc-magnet="0.2"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2a8.7 8.7 0 0 0-7.5 13.1L3.3 20.8l4.6-1.2A8.7 8.7 0 1 0 12 3.2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.1 8.2c.2-.4.4-.4.7-.4h.5c.2 0 .4 0 .5.4l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.6 1 1.4 1.8 2.4 2.4.2.1.4.1.5 0l.6-.7c.2-.2.4-.2.6-.1l1.6.7c.3.1.3.3.3.5 0 .9-.6 1.6-1.5 1.8-.8.1-2.3-.1-4.2-1.7-1.6-1.4-2.4-2.9-2.6-3.8-.2-.9.2-1.7.5-2.4z" fill="currentColor"/></svg>Quero minha vaga na próxima turma</a>
+        </form>
+      </article>
 
       <div class="contact" data-sc-in>
         <p>Ficou com alguma dúvida? Fale direto com a Francinete.</p>
         <div class="contact__btns">
-          <a class="btn btn--wa" href="https://wa.me/5561999092511?text=Ol%C3%A1%2C%20Francinete%21%20Quero%20fazer%20a%20aula%20presencial%20de%20velas%20artesanais%20em%20Taguatinga%20Norte%20%28R%24%20150%2C00%29.%20Quando%20%C3%A9%20a%20pr%C3%B3xima%20turma%3F" target="_blank" rel="noopener" data-sc-magnet="0.24">Quero fazer a aula</a>
+          <a class="btn btn--wa" href="#reserva">Guardar meu lugar</a>
           <a class="btn btn--wa btn--line" href="https://wa.me/5561999092511?text=Ol%C3%A1%2C%20Francinete%21%20Vi%20o%20site%20e%20queria%20tirar%20uma%20d%C3%BAvida%20sobre%20os%20cursos%20de%20velas." target="_blank" rel="noopener"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2a8.7 8.7 0 0 0-7.5 13.1L3.3 20.8l4.6-1.2A8.7 8.7 0 1 0 12 3.2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.1 8.2c.2-.4.4-.4.7-.4h.5c.2 0 .4 0 .5.4l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.6 1 1.4 1.8 2.4 2.4.2.1.4.1.5 0l.6-.7c.2-.2.4-.2.6-.1l1.6.7c.3.1.3.3.3.5 0 .9-.6 1.6-1.5 1.8-.8.1-2.3-.1-4.2-1.7-1.6-1.4-2.4-2.9-2.6-3.8-.2-.9.2-1.7.5-2.4z" fill="currentColor"/></svg>Falar no WhatsApp</a>
         </div>
       </div>
@@ -935,7 +1021,66 @@
   cloneLid.setAttribute('transform', 'translate(214 212) rotate(0)');
   clone.setAttribute('viewBox', '250 200 520 380');
   clone.classList.remove('lit');
+  var cloneLabel = clone.querySelectorAll('.piece')[5];
+  Array.prototype.slice.call(cloneLabel.children).forEach(function (n, i) { if (i > 0) n.classList.add('lbl-seal'); });
+  var NS = 'http://www.w3.org/2000/svg';
+  var lblSmall = document.createElementNS(NS, 'text');
+  lblSmall.setAttribute('x', '400'); lblSmall.setAttribute('y', '458'); lblSmall.setAttribute('text-anchor', 'middle');
+  lblSmall.setAttribute('font-family', 'Geist, system-ui, sans-serif'); lblSmall.setAttribute('font-size', '9.5'); lblSmall.setAttribute('letter-spacing', '2.4');
+  lblSmall.setAttribute('fill', '#5E3F24'); lblSmall.setAttribute('class', 'lbl-name'); lblSmall.textContent = 'FEITA POR';
+  var lblName = document.createElementNS(NS, 'text');
+  lblName.setAttribute('x', '400'); lblName.setAttribute('y', '488'); lblName.setAttribute('text-anchor', 'middle');
+  lblName.setAttribute('font-family', 'Fraunces, Georgia, serif'); lblName.setAttribute('font-style', 'italic'); lblName.setAttribute('font-size', '27');
+  lblName.setAttribute('fill', '#3E2714'); lblName.setAttribute('class', 'lbl-name');
+  cloneLabel.appendChild(lblSmall); cloneLabel.appendChild(lblName);
   closeHost.appendChild(clone);
+
+  /* ---- Lista da próxima turma: nome no rótulo, escolhas viram a mensagem do WhatsApp. ---- */
+  (function () {
+    var res = document.getElementById('reserva');
+    var nameIn = document.getElementById('resName');
+    var msgEl = document.getElementById('resMsg');
+    var cta = document.getElementById('resCta');
+    var hint = document.getElementById('resHint');
+    var groups = Array.prototype.slice.call(res.querySelectorAll('.res__group'));
+    var picks = { dia: [], periodo: [], pessoas: [] };
+    function joinPt(a) { return a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' ou ' + a[a.length - 1]; }
+    function update() {
+      var nome = nameIn.value.replace(/\s+/g, ' ').trim();
+      var first = nome.split(' ')[0] || '';
+      lblName.textContent = nome;
+      var len = nome.length;
+      lblName.setAttribute('font-size', len > 16 ? '18' : len > 11 ? '22' : '27');
+      var lit = first.length >= 2;
+      res.classList.toggle('has-name', nome.length > 0);
+      res.classList.toggle('is-lit', lit);
+      closeHost.classList.toggle('lit', lit);
+      hint.textContent = lit ? 'Essa é a vela da ' + first + '. Agora é só guardar o lugar.' : 'Escreva seu nome e acenda a sua vela.';
+      var lines = ['Olá, Francinete! Quero uma vaga na próxima turma da aula presencial de velas (Taguatinga Norte).'];
+      if (nome) lines.push('Nome: ' + nome);
+      if (picks.dia.length) lines.push('Melhor dia: ' + joinPt(picks.dia));
+      if (picks.periodo.length) lines.push('Período: ' + joinPt(picks.periodo));
+      if (picks.pessoas.length) lines.push('Pessoas: ' + picks.pessoas[0]);
+      lines.push('Me avisa quando abrir a turma?');
+      var text = lines.join('\n');
+      msgEl.textContent = text;
+      cta.href = 'https://wa.me/5561999092511?text=' + encodeURIComponent(text);
+    }
+    groups.forEach(function (g) {
+      var key = g.getAttribute('data-key'), multi = g.hasAttribute('data-multi');
+      g.addEventListener('click', function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        var on = b.getAttribute('aria-pressed') !== 'true';
+        if (!multi) g.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        picks[key] = Array.prototype.slice.call(g.querySelectorAll('button[aria-pressed="true"]')).map(function (x) { return x.textContent; });
+        update();
+      });
+    });
+    nameIn.addEventListener('input', update);
+    document.getElementById('resForm').addEventListener('submit', function (e) { e.preventDefault(); cta.click(); });
+    update();
+  })();
 
 
   /* ---- Linha das etapas: se desenha conforme a página desce. ---- */
@@ -976,12 +1121,12 @@
     bar.classList.toggle('on-light', onLight);
 
     var pr = peak.getBoundingClientRect(), cr2 = contactEl.getBoundingClientRect(), fr = footEl.getBoundingClientRect();
-    var fabOn = pr.bottom < innerHeight * 0.5 && !(cr2.top < innerHeight && cr2.bottom > 0) && !(fr.top < innerHeight - 40);
+    var fabOn = pr.bottom < innerHeight * 0.5 && !(cr2.top < innerHeight && cr2.bottom > 0) && !(fr.top < innerHeight - 40) && !(function(){var r=document.getElementById('reserva').getBoundingClientRect();return r.top < innerHeight && r.bottom > 0;})();
     if (fabOn !== lastFab) { fab.classList.toggle('show', fabOn); lastFab = fabOn; }
 
     if (!closeLit) {
       var cr = closeHost.getBoundingClientRect();
-      if (cr.top < innerHeight * 0.78) { closeHost.classList.add('lit'); closeLit = true; }
+      closeLit = true;
     }
     requestAnimationFrame(tick);
   }
