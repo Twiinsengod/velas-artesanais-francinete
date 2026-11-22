@@ -112,6 +112,50 @@
   .res__invite p { margin: 0; font-size: var(--sc-t-sm); color: var(--sc-ink-soft); }
   .res__invite-btn { min-height: 2.75rem; }
   .res__invite-btn .wa-ico { width: 1.1rem; height: 1.1rem; }
+  /* Dúvidas em formato de conversa */
+  .faq { padding-block: clamp(4rem, 9vw, 7rem) 0; }
+  .faq__head { text-align: center; display: grid; justify-items: center; }
+  .faq__head h2 { font-size: var(--sc-t-3xl); max-width: 14ch; }
+  .faq__head p { margin-top: var(--sc-4); color: var(--sc-ink-soft); max-width: 40ch; }
+  .chat {
+    margin: clamp(2rem, 4vw, 3rem) auto 0; max-width: 38rem; border-radius: var(--sc-r-lg); overflow: hidden;
+    background: #EFE6DA; box-shadow: var(--sc-e3);
+    background-image: radial-gradient(rgb(166 73 43 / 0.07) 1px, transparent 1.2px); background-size: 18px 18px;
+  }
+  .chat__top { display: flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1.1rem; background: #2A1D17; color: #F3ECE4; }
+  .chat__top div { display: grid; line-height: 1.2; }
+  .chat__top b { font-family: var(--sc-font-display); font-style: italic; font-weight: 500; font-size: 1.1rem; font-variation-settings: "SOFT" 100, "WONK" 1; }
+  .chat__top span:not(.chat__avatar) { font-size: var(--sc-t-xs); color: #C7B5A6; }
+  .chat__avatar { width: 2.4rem; height: 2.4rem; border-radius: 50%; display: grid; place-items: center; background: #A6492B; color: #FBEFE6; font-family: var(--sc-font-display); font-style: italic; font-size: 1.2rem; box-shadow: inset 0 0 0 2px rgb(244 220 205 / 0.35); }
+  .chat__log { list-style: none; margin: 0; padding: 1.1rem 1rem 0.5rem; display: flex; flex-direction: column; gap: 0.55rem; max-height: 26rem; overflow-y: auto; scroll-behavior: smooth; }
+  .msg { max-width: 82%; padding: 0.6rem 0.85rem; border-radius: 0.95rem; font-size: var(--sc-t-sm); line-height: 1.5; box-shadow: 0 1px 0 rgb(0 0 0 / 0.08); animation: msgIn 320ms var(--sc-ease-out) both; }
+  .msg--in { align-self: flex-start; background: #FFFDF9; color: #1E1714; border-bottom-left-radius: 0.3rem; }
+  .msg--out { align-self: flex-end; background: #F6D9C4; color: #3A1E10; border-bottom-right-radius: 0.3rem; }
+  .msg a.msg__btn { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.5rem; min-height: 2.5rem; padding: 0 0.9rem; border-radius: var(--sc-r-pill); background: #A6492B; color: #FFF7F1; font-weight: 560; text-decoration: none; }
+  .msg a.msg__btn .wa-ico { width: 1rem; height: 1rem; }
+  .msg--typing { display: inline-flex; gap: 0.25rem; padding: 0.75rem 0.9rem; }
+  .msg--typing i { width: 0.42rem; height: 0.42rem; border-radius: 50%; background: #B8A898; animation: dot 1s infinite ease-in-out; }
+  .msg--typing i:nth-child(2) { animation-delay: 0.15s; } .msg--typing i:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes dot { 0%, 80%, 100% { transform: translateY(0); opacity: 0.5; } 40% { transform: translateY(-3px); opacity: 1; } }
+  @keyframes msgIn { from { opacity: 0; transform: translateY(6px) scale(0.98); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .msg, .msg--typing i { animation: none; } }
+  .chat__chips { display: flex; flex-wrap: wrap; gap: 0.45rem; padding: 0.6rem 1rem 1.1rem; }
+  .chat__chips button {
+    font: inherit; font-size: var(--sc-t-sm); min-height: 2.75rem; padding: 0 0.95rem; cursor: pointer;
+    color: #A6492B; background: #FFFDF9; border: 1px solid rgb(166 73 43 / 0.35); border-radius: var(--sc-r-pill);
+    transition: background-color 160ms, border-color 160ms, scale 120ms;
+  }
+  .chat__chips button:active { scale: 0.96; }
+  .chat__chips button:focus-visible { outline: 2px solid #A6492B; outline-offset: 2px; }
+  @media (hover: hover) and (pointer: fine) { .chat__chips button:hover { background: #FBEFE6; border-color: #A6492B; } }
+  .chat__chips .chip--other { color: #5B4C42; border-style: dashed; border-color: rgb(91 76 66 / 0.4); }
+  .chat__ask { display: flex; gap: 0.5rem; padding: 0 1rem 1.1rem; }
+  .chat__ask[hidden] { display: none; }
+  .chat__ask input { flex: 1; min-width: 0; font: inherit; min-height: 2.9rem; padding: 0 1rem; border-radius: var(--sc-r-pill); border: 1px solid rgb(91 76 66 / 0.3); background: #FFFDF9; color: #1E1714; }
+  .chat__ask input:focus { outline: none; border-color: #A6492B; box-shadow: 0 0 0 3px rgb(166 73 43 / 0.18); }
+  .chat__send { flex: none; width: 2.9rem; height: 2.9rem; border-radius: 50%; border: 0; display: grid; place-items: center; background: #A6492B; color: #FFF7F1; cursor: pointer; }
+  .chat__send .wa-ico { width: 1.2rem; height: 1.2rem; }
+  @media (max-width: 760px) { .faq__head h2 { font-size: var(--sc-t-2xl); } .msg { max-width: 90%; } }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .hero-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.25rem; margin-top: var(--sc-5); }
   .hero-row .hero-link { margin-top: 0; }
@@ -770,6 +814,39 @@
     </div>
   </section>
 
+  <!-- 3b · DÚVIDAS: conversa no estilo WhatsApp, respostas só com o que o site já diz. -->
+  <section class="faq ground-light" id="duvidas" data-sc-act="flow">
+    <div class="sc-wrap">
+      <header class="faq__head" data-sc-in data-sc-stagger="70">
+        <h2 class="sc-display">Antes de guardar seu lugar</h2>
+        <p>Toque numa pergunta. O que não estiver aqui, a Francinete responde no WhatsApp.</p>
+      </header>
+      <div class="chat" data-sc-in>
+        <div class="chat__top">
+          <span class="chat__avatar" aria-hidden="true">F</span>
+          <div><b>Francinete</b><span>respostas rápidas</span></div>
+        </div>
+        <ol class="chat__log" id="chatLog" aria-live="polite">
+          <li class="msg msg--in">Oi! Separei aqui as dúvidas mais comuns sobre a aula. Pode tocar à vontade.</li>
+        </ol>
+        <div class="chat__chips" id="chatChips">
+          <button type="button" data-q="0">Preciso ter experiência?</button>
+          <button type="button" data-q="1">Quanto custa e quanto dura?</button>
+          <button type="button" data-q="2">O material está incluso?</button>
+          <button type="button" data-q="3">Onde é a aula?</button>
+          <button type="button" data-q="4">Quando é a próxima turma?</button>
+          <button type="button" data-q="5">Posso ir com uma amiga?</button>
+          <button type="button" data-q="6" class="chip--other">Tenho outra dúvida</button>
+        </div>
+        <form class="chat__ask" id="chatAsk" hidden>
+          <label class="sr-only" for="chatInput">Sua pergunta</label>
+          <input id="chatInput" type="text" maxlength="200" placeholder="Escreva sua pergunta">
+          <button type="submit" class="chat__send" aria-label="Enviar pergunta pelo WhatsApp"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2a8.7 8.7 0 0 0-7.5 13.1L3.3 20.8l4.6-1.2A8.7 8.7 0 1 0 12 3.2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.1 8.2c.2-.4.4-.4.7-.4h.5c.2 0 .4 0 .5.4l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.6 1 1.4 1.8 2.4 2.4.2.1.4.1.5 0l.6-.7c.2-.2.4-.2.6-.1l1.6.7c.3.1.3.3.3.5 0 .9-.6 1.6-1.5 1.8-.8.1-2.3-.1-4.2-1.7-1.6-1.4-2.4-2.9-2.6-3.8-.2-.9.2-1.7.5-2.4z" fill="currentColor"/></svg></button>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <!-- 4 · CURSOS: a vela remonta, acende, e as duas portas se abrem. -->
   <section class="close ground-light" id="cursos" data-sc-act="flow">
     <div class="sc-wrap">
@@ -844,6 +921,7 @@
               <li><a href="#anatomia">A vela</a></li>
               <li><a href="#aula">A aula</a></li>
               <li><a href="#quem">Quem é a Francinete</a></li>
+              <li><a href="#duvidas">Dúvidas</a></li>
               <li><a href="#cursos">Aula presencial</a></li>
             </ul>
           </nav>
@@ -1158,6 +1236,51 @@
     update();
   })();
 
+
+
+  /* ---- Dúvidas: conversa com respostas prontas, só com fatos que o site já afirma. ---- */
+  (function () {
+    var log = document.getElementById('chatLog'), chips = document.getElementById('chatChips');
+    var ask = document.getElementById('chatAsk'), input = document.getElementById('chatInput');
+    var WA = 'https://wa.me/5561999092511?text=';
+    var ICO = document.querySelector('.res__cta .wa-ico').outerHTML;
+    function waBtn(label, text) { return '<br><a class="msg__btn" target="_blank" rel="noopener" href="' + WA + encodeURIComponent(text) + '">' + ICO + label + '</a>'; }
+    var A = [
+      'Não precisa. Você faz cada etapa com as próprias mãos, do bloco de cera à primeira chama, com a Francinete do lado.',
+      'A aula presencial custa R$ 150,00 e dura 2 horas.',
+      'Está. Os materiais são inclusos, e você leva suas velas para casa.',
+      'Em Taguatinga Norte, Brasília. O endereço certinho vai pelo WhatsApp.' + waBtn('Pedir o endereço', 'Olá, Francinete! Qual é o endereço da aula de velas em Taguatinga Norte?'),
+      'Ainda não há datas fixas. Diga o dia e o período que ficam melhores na lista da próxima turma, logo abaixo, e a Francinete avisa quando abrir.<br><a class="msg__btn" href="#reserva">Ir para a lista</a>',
+      'Pode. Na lista da turma, marque “Eu + 1” ou “3 ou mais”, ou mande o convite para ela pelo botão “Convidar uma amiga”.<br><a class="msg__btn" href="#reserva">Ir para a lista</a>'
+    ];
+    var reduce = ScrollCraft.reduce;
+    function add(cls, html) { var li = document.createElement('li'); li.className = 'msg ' + cls; li.innerHTML = html; log.appendChild(li); log.scrollTop = log.scrollHeight; return li; }
+    function addText(cls, text) { var li = add(cls, ''); li.textContent = text; return li; }
+    var busy = false;
+    chips.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b || busy) return;
+      var q = +b.getAttribute('data-q');
+      addText('msg--out', b.textContent);
+      b.remove();
+      if (q === 6) {
+        add('msg--in', 'Claro. Escreva aqui embaixo, e a pergunta vai direto para o WhatsApp da Francinete.');
+        ask.hidden = false; input.focus(); return;
+      }
+      busy = true;
+      var t = reduce ? null : add('msg--in msg--typing', '<i></i><i></i><i></i>');
+      setTimeout(function () { if (t) t.remove(); add('msg--in', A[q]); busy = false; }, reduce ? 0 : 750);
+    });
+    ask.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var q = input.value.trim(); if (!q) { input.focus(); return; }
+      var nome = (document.getElementById('resName').value || '').trim();
+      var text = 'Olá, Francinete!' + (nome ? ' Aqui é ' + nome + '.' : '') + ' Tenho uma dúvida sobre a aula de velas: ' + q;
+      addText('msg--out', q);
+      add('msg--in', 'Sua pergunta está pronta para enviar.' + waBtn('Enviar no WhatsApp', text));
+      input.value = '';
+      window.open(WA + encodeURIComponent(text), '_blank', 'noopener');
+    });
+  })();
 
   /* ---- Linha das etapas: se desenha conforme a página desce. ---- */
   var stepsEl = document.getElementById('steps');
