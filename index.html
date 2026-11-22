@@ -97,6 +97,24 @@
 
   .hero-eyebrow { margin: 0 0 var(--sc-5) !important; font-size: var(--sc-t-sm) !important; letter-spacing: 0.04em; color: var(--sc-ink-soft); }
   .hero-eyebrow b { font-family: var(--sc-font-display); font-style: italic; font-weight: 480; font-size: 1.35em; letter-spacing: -0.01em; color: var(--sc-ink); font-variation-settings: "SOFT" 100, "WONK" 1; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .hero-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.25rem; margin-top: var(--sc-5); }
+  .hero-row .hero-link { margin-top: 0; }
+  .hero-name input {
+    font: inherit; font-family: var(--sc-font-display); font-style: italic; font-size: 1.15rem; color: #F3ECE4;
+    width: 13.5rem; max-width: 62vw; min-height: 2.9rem; padding: 0 1.1rem;
+    background: rgb(243 236 228 / 0.06); border: 1px solid rgb(243 236 228 / 0.28); border-radius: var(--sc-r-pill);
+    transition: border-color 160ms, background-color 160ms, box-shadow 200ms;
+  }
+  .hero-name input::placeholder { color: rgb(243 236 228 / 0.5); }
+  .hero-name input:focus { outline: none; border-color: #E3906B; background: rgb(243 236 228 / 0.1); box-shadow: 0 0 0 4px rgb(227 144 107 / 0.22); }
+  .hero-name-hint { margin: var(--sc-2) 0 0 !important; font-size: var(--sc-t-xs) !important; color: var(--sc-ink-soft); transition: color 300ms; }
+  .hero-name-hint.on { color: #F3C9A9; }
+  #vela .lbl-name { opacity: 0; transition: opacity 400ms var(--sc-ease-out); }
+  #vela .lbl-seal { transition: opacity 300ms var(--sc-ease-out); }
+  #vela.has-name .lbl-name { opacity: 1; }
+  #vela.has-name .lbl-seal { opacity: 0; }
+  @media (max-width: 860px) { .hero-name input { width: 11.5rem; font-size: 1.05rem; min-height: 2.75rem; } .hero-name-hint { display: none; } }
   .hero-link {
     display: inline-flex; align-items: center; gap: 0.45rem; margin-top: var(--sc-5); min-height: 2.75rem;
     color: var(--sc-accent); font-weight: 560; text-decoration: none;
@@ -277,9 +295,9 @@
   .ln { display: inline-block; }
   @media (prefers-reduced-motion: no-preference) {
     .hero-copy .ln { animation: lineIn 900ms var(--sc-ease-out) both; animation-delay: calc(120ms + var(--l, 0) * 110ms); }
-    .hero-copy > p, .hero-copy > .hero-link { animation: lineIn 900ms var(--sc-ease-out) both; animation-delay: 480ms; }
+    .hero-copy > p, .hero-copy > .hero-row { animation: lineIn 900ms var(--sc-ease-out) both; animation-delay: 480ms; }
     .hero-copy > .hero-eyebrow { animation-delay: 0ms; }
-    .hero-copy > .hero-link { animation-delay: 640ms; }
+    .hero-copy > .hero-row { animation-delay: 640ms; }
   }
   @keyframes lineIn { from { opacity: 0; transform: translate3d(0, 0.6em, 0); } to { opacity: 1; transform: none; } }
 
@@ -578,7 +596,11 @@
           <p class="hero-eyebrow"><b>Francinete</b> · velas artesanais</p>
           <h1 class="sc-display">Toda vela guarda uma <em>aula</em>.</h1>
           <p>Aprenda com a Francinete a fazer velas artesanais, do pavio à chama.</p>
-          <a class="hero-link" href="#cursos">Ver a aula presencial <span aria-hidden="true">→</span></a>
+          <div class="hero-row">
+            <label class="hero-name"><span class="sr-only">Seu nome</span><input id="heroName" type="text" maxlength="22" autocomplete="given-name" placeholder="Escreva seu nome"></label>
+            <a class="hero-link" href="#reserva">Ver a aula <span aria-hidden="true">→</span></a>
+          </div>
+          <p class="hero-name-hint" id="heroHint">Seu nome vai para o rótulo da vela.</p>
         </div>
 
         <div class="turn-copy">
@@ -1035,6 +1057,11 @@
   cloneLabel.appendChild(lblSmall); cloneLabel.appendChild(lblName);
   closeHost.appendChild(clone);
 
+  var mainLabel = svg.getElementById('p-label');
+  Array.prototype.slice.call(mainLabel.children).forEach(function (n, i) { if (i > 0) n.classList.add('lbl-seal'); });
+  var mainSmall = lblSmall.cloneNode(true), mainName = lblName.cloneNode(true);
+  mainLabel.appendChild(mainSmall); mainLabel.appendChild(mainName);
+
   /* ---- Lista da próxima turma: nome no rótulo, escolhas viram a mensagem do WhatsApp. ---- */
   (function () {
     var res = document.getElementById('reserva');
@@ -1043,14 +1070,21 @@
     var cta = document.getElementById('resCta');
     var hint = document.getElementById('resHint');
     var groups = Array.prototype.slice.call(res.querySelectorAll('.res__group'));
+    var heroIn = document.getElementById('heroName'), heroHint = document.getElementById('heroHint');
+    heroIn.addEventListener('input', function () { nameIn.value = heroIn.value; update(); });
+    heroIn.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); heroIn.blur(); } });
     var picks = { dia: [], periodo: [], pessoas: [] };
     function joinPt(a) { return a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' ou ' + a[a.length - 1]; }
     function update() {
       var nome = nameIn.value.replace(/\s+/g, ' ').trim();
       var first = nome.split(' ')[0] || '';
-      lblName.textContent = nome;
-      var len = nome.length;
-      lblName.setAttribute('font-size', len > 16 ? '18' : len > 11 ? '22' : '27');
+      var len = nome.length, fs = len > 16 ? '18' : len > 11 ? '22' : '27';
+      lblName.textContent = nome; lblName.setAttribute('font-size', fs);
+      mainName.textContent = nome; mainName.setAttribute('font-size', fs);
+      svg.classList.toggle('has-name', len > 0);
+      if (heroIn.value !== nameIn.value) heroIn.value = nameIn.value;
+      heroHint.classList.toggle('on', first.length >= 2);
+      heroHint.textContent = first.length >= 2 ? 'Pronto: essa vela agora é da ' + first + '. Role para abrir.' : 'Seu nome vai para o rótulo da vela.';
       var lit = first.length >= 2;
       res.classList.toggle('has-name', nome.length > 0);
       res.classList.toggle('is-lit', lit);
