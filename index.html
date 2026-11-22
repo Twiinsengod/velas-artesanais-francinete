@@ -197,6 +197,23 @@
   .pill-map__skip { margin-left: 0.25rem; min-height: 2.25rem; display: inline-flex; align-items: center; padding: 0 0.8rem; border-radius: var(--sc-r-pill); background: #E3906B; color: #1A110D; font-weight: 600; text-decoration: none; }
   @media (max-width: 860px) { .rail-map { display: none !important; } .pill-map { display: inline-flex; } .pill-map[hidden] { display: none; } }
   @media (prefers-reduced-motion: reduce) { .rail-map, .pill-map, .rail-map button span { transition: none; } }
+  .res__share {
+    display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; padding: 0 1.05rem; cursor: pointer;
+    font: inherit; font-size: var(--sc-t-sm); font-weight: 560; color: #1A110D; border: 0; border-radius: var(--sc-r-pill);
+    background: linear-gradient(135deg, #F3B07F, #E3906B 45%, #C9665A); box-shadow: 0 6px 18px -6px rgb(227 144 107 / 0.6);
+    animation: msgIn 360ms var(--sc-ease-out) both;
+  }
+  .res__share[hidden] { display: none; }
+  .res__share svg { width: 1.1rem; height: 1.1rem; }
+  .res__share:active { scale: 0.97; }
+  .story-dlg { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 1rem; background: rgb(12 9 7 / 0.78); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+  .story-dlg[hidden] { display: none; }
+  .story-dlg__box { display: grid; justify-items: center; gap: 0.9rem; max-height: 100%; }
+  .story-dlg__box img { max-height: min(70svh, 40rem); width: auto; max-width: 86vw; border-radius: 1rem; box-shadow: 0 20px 60px rgb(0 0 0 / 0.5); }
+  .story-dlg__btns { display: flex; gap: 0.6rem; flex-wrap: wrap; justify-content: center; }
+  .story-dlg .btn--line { color: #F3ECE4; box-shadow: inset 0 0 0 1.5px rgb(243 236 228 / 0.5); }
+  .story-dlg p { margin: 0; color: #C7B5A6; font-size: var(--sc-t-sm); }
+  .story-dlg p b { color: #F3ECE4; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .hero-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.25rem; margin-top: var(--sc-5); }
   .hero-row .hero-link { margin-top: 0; }
@@ -547,6 +564,17 @@
   <span class="pill-map__count" id="pillCount">1 de 7</span>
   <span class="pill-map__name" id="pillName">Tampa</span>
   <a class="pill-map__skip" href="#aula">Pular</a>
+</div>
+
+<div class="story-dlg" id="storyDlg" hidden role="dialog" aria-modal="true" aria-label="Sua vela para os stories">
+  <div class="story-dlg__box">
+    <img id="storyImg" alt="Imagem da sua vela com o seu nome, para os stories">
+    <div class="story-dlg__btns">
+      <a class="btn" id="storyGet" download="minha-vela-francinete.png">Baixar imagem</a>
+      <button type="button" class="btn btn--line" id="storyClose">Fechar</button>
+    </div>
+    <p>Marque <b>@france.arte</b> no story.</p>
+  </div>
 </div>
 
 <main id="top">
@@ -910,6 +938,7 @@
         <div class="res__stage">
           <div class="close__candle" id="closeCandle" aria-hidden="true"></div>
           <p class="res__hint" id="resHint">Escreva seu nome e acenda a sua vela.</p>
+          <button type="button" class="res__share" id="resShare" hidden><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5.2"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.4" cy="6.6" r="1.15" fill="currentColor" stroke="none"/></svg>Compartilhar minha vela</button>
           <label class="res__field res__field--stage">
             <span>Seu nome</span>
             <input id="resName" type="text" name="nome" maxlength="22" autocomplete="given-name" placeholder="Como você se chama?">
@@ -1246,6 +1275,79 @@
   var mainSmall = lblSmall.cloneNode(true), mainName = lblName.cloneNode(true);
   mainLabel.appendChild(mainSmall); mainLabel.appendChild(mainName);
 
+
+  /* ---- Story: a vela com o nome vira imagem 1080x1920 para compartilhar. ---- */
+  var shareBtn = document.getElementById('resShare');
+  (function () {
+    var dlg = document.getElementById('storyDlg'), img = document.getElementById('storyImg'), get = document.getElementById('storyGet');
+    var fontCache = null;
+    function fontData() {
+      if (fontCache) return fontCache;
+      fontCache = fetch('fonts/fraunces-latin-full-italic.woff2').then(function (r) { return r.blob(); }).then(function (b) {
+        return new Promise(function (ok) { var fr = new FileReader(); fr.onload = function () { ok(fr.result); }; fr.readAsDataURL(b); });
+      }).catch(function () { return null; });
+      return fontCache;
+    }
+    function candleImage() {
+      var svgEl = document.querySelector('#closeCandle svg').cloneNode(true);
+      svgEl.querySelectorAll('.lbl-seal').forEach(function (n) { n.remove(); });
+      svgEl.querySelectorAll('.pool').forEach(function (n) { n.setAttribute('opacity', '0.95'); });
+      svgEl.setAttribute('width', '1040'); svgEl.setAttribute('height', '760');
+      svgEl.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      return fontData().then(function (f) {
+        if (f) {
+          var st = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+          st.textContent = '@font-face{font-family:"Fraunces";font-style:italic;font-weight:100 900;src:url(' + f + ') format("woff2");}';
+          svgEl.insertBefore(st, svgEl.firstChild);
+        }
+        var url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(svgEl));
+        return new Promise(function (ok, bad) { var im = new Image(); im.onload = function () { ok(im); }; im.onerror = bad; im.src = url; });
+      });
+    }
+    function wrap(ctx, text, x, y, maxW, lh) {
+      var words = text.split(' '), line = '', lines = [];
+      words.forEach(function (w) { var t = line ? line + ' ' + w : w; if (ctx.measureText(t).width > maxW && line) { lines.push(line); line = w; } else line = t; });
+      lines.push(line); lines.forEach(function (l, i) { ctx.fillText(l, x, y + i * lh); }); return lines.length;
+    }
+    function build() {
+      return Promise.all([candleImage(), document.fonts ? document.fonts.ready : null]).then(function (r) {
+        var cand = r[0], W = 1080, H = 1920;
+        var c = document.createElement('canvas'); c.width = W; c.height = H; var ctx = c.getContext('2d');
+        var g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#14100E'); g.addColorStop(1, '#2A1C15'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+        var rg = ctx.createRadialGradient(W / 2, 760, 20, W / 2, 760, 620); rg.addColorStop(0, 'rgba(255,180,107,0.32)'); rg.addColorStop(1, 'rgba(255,180,107,0)'); ctx.fillStyle = rg; ctx.fillRect(0, 0, W, H);
+        ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+        ctx.fillStyle = '#F3ECE4'; ctx.font = 'italic 500 56px Fraunces, Georgia, serif'; ctx.fillText('Francinete', W / 2, 170);
+        ctx.fillStyle = '#BCAC9E'; ctx.font = '500 30px Geist, system-ui, sans-serif'; ctx.fillText('velas artesanais', W / 2, 220);
+        ctx.drawImage(cand, 20, 380, 1040, 760);
+        ctx.fillStyle = '#F3ECE4'; ctx.font = '400 84px Fraunces, Georgia, serif';
+        var n = wrap(ctx, 'Vou aprender a fazer velas artesanais.', W / 2, 1290, 900, 96);
+        var y = 1290 + n * 96 + 30;
+        ctx.fillStyle = '#E3906B'; ctx.font = '600 32px Geist, system-ui, sans-serif'; ctx.fillText('AULA PRESENCIAL · TAGUATINGA NORTE, BRASÍLIA', W / 2, y);
+        ctx.fillStyle = 'rgba(243,236,228,0.12)'; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(240, 1660, 600, 96, 48) : ctx.rect(240, 1660, 600, 96); ctx.fill();
+        ctx.fillStyle = '#F3ECE4'; ctx.font = '600 44px Geist, system-ui, sans-serif'; ctx.fillText('@france.arte', W / 2, 1724);
+        ctx.fillStyle = '#9C8D80'; ctx.font = '400 28px Geist, system-ui, sans-serif'; ctx.fillText('velas-artesanais-francinete.pages.dev', W / 2, 1830);
+        return new Promise(function (ok) { c.toBlob(ok, 'image/png'); });
+      });
+    }
+    function close() { dlg.hidden = true; shareBtn.focus(); }
+    document.getElementById('storyClose').addEventListener('click', close);
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) close(); });
+    addEventListener('keydown', function (e) { if (e.key === 'Escape' && !dlg.hidden) close(); });
+    shareBtn.addEventListener('click', function () {
+      var label = shareBtn.lastChild.textContent; shareBtn.lastChild.textContent = 'Preparando…';
+      build().then(function (blob) {
+        shareBtn.lastChild.textContent = label;
+        var file = new File([blob], 'minha-vela-francinete.png', { type: 'image/png' });
+        var data = { files: [file], text: 'Vou aprender a fazer velas artesanais com @france.arte ✨ velas-artesanais-francinete.pages.dev' };
+        if (navigator.canShare && navigator.canShare({ files: [file] }) && matchMedia('(pointer: coarse)').matches) {
+          navigator.share(data).catch(function () {});
+          return;
+        }
+        var url = URL.createObjectURL(blob); img.src = url; get.href = url; dlg.hidden = false; get.focus();
+      }).catch(function () { shareBtn.lastChild.textContent = label; });
+    });
+  })();
+
   /* ---- Lista da próxima turma: nome no rótulo, escolhas viram a mensagem do WhatsApp. ---- */
   (function () {
     var res = document.getElementById('reserva');
@@ -1281,12 +1383,13 @@
       svg.classList.toggle('has-name', len > 0);
       if (heroIn.value !== nameIn.value) heroIn.value = nameIn.value;
       heroHint.classList.toggle('on', first.length >= 2);
-      heroHint.textContent = first.length >= 2 ? 'Pronto: essa vela agora é da ' + first + '. Role para abrir.' : 'Seu nome vai para o rótulo da vela.';
+      heroHint.textContent = first.length >= 2 ? 'Pronto, ' + first + ': a vela agora tem o seu nome. Role para abrir.' : 'Seu nome vai para o rótulo da vela.';
       var lit = first.length >= 2;
       res.classList.toggle('has-name', nome.length > 0);
       res.classList.toggle('is-lit', lit);
       closeHost.classList.toggle('lit', lit);
-      hint.textContent = lit ? 'Essa é a vela da ' + first + '. Agora é só guardar o lugar.' : 'Escreva seu nome e acenda a sua vela.';
+      hint.textContent = lit ? 'Pronto, ' + first + ': essa vela é sua. Agora é só guardar o lugar.' : 'Escreva seu nome e acenda a sua vela.';
+      shareBtn.hidden = !lit;
       var lines = ['Olá, Francinete! Quero uma vaga na próxima turma da aula presencial de velas (Taguatinga Norte).'];
       if (nome) lines.push('Nome: ' + nome);
       if (convidante) lines.push('Vim pelo convite de: ' + convidante);
