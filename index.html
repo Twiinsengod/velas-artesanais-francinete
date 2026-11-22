@@ -156,6 +156,47 @@
   .chat__send { flex: none; width: 2.9rem; height: 2.9rem; border-radius: 50%; border: 0; display: grid; place-items: center; background: #A6492B; color: #FFF7F1; cursor: pointer; }
   .chat__send .wa-ico { width: 1.2rem; height: 1.2rem; }
   @media (max-width: 760px) { .faq__head h2 { font-size: var(--sc-t-2xl); } .msg { max-width: 90%; } }
+  /* Mapa da vela: quanto falta e atalho para pular. */
+  .rail-map {
+    position: fixed; z-index: var(--sc-z-chrome); right: calc(1.25rem + env(safe-area-inset-right)); top: 50%;
+    transform: translateY(-50%); display: flex; flex-direction: column; align-items: flex-end; gap: 0.9rem;
+    opacity: 0; pointer-events: none; transition: opacity 300ms var(--sc-ease-out);
+  }
+  .rail-map.on { opacity: 1; pointer-events: auto; }
+  .rail-map ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.15rem; position: relative; }
+  .rail-map ol::before { content: ""; position: absolute; right: 0.95rem; top: 1.1rem; bottom: 1.1rem; width: 1px; background: rgb(243 236 228 / 0.18); }
+  .rail-map button {
+    position: relative; width: 100%; display: flex; align-items: center; justify-content: flex-end; gap: 0.7rem;
+    min-height: 2.2rem; padding: 0 0.55rem 0 0.9rem; border: 0; background: transparent; cursor: pointer;
+    font: inherit; font-size: var(--sc-t-xs); letter-spacing: 0.06em; color: rgb(243 236 228 / 0.45);
+  }
+  .rail-map button span { padding: 0.2rem 0.6rem; border-radius: var(--sc-r-pill); background: rgb(20 16 14 / 0.78); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    opacity: 0; transform: translateX(6px); transition: opacity 200ms, transform 200ms var(--sc-ease-out); white-space: nowrap; }
+  .rail-map button i { width: 0.8rem; height: 0.8rem; border-radius: 50%; flex: none; background: #14100E; box-shadow: inset 0 0 0 1.5px rgb(243 236 228 / 0.4); transition: background-color 250ms, box-shadow 250ms, transform 250ms var(--sc-ease-out); }
+  .rail-map li.done i { background: rgb(227 144 107 / 0.6); box-shadow: none; }
+  .rail-map li.now i { background: #E3906B; box-shadow: 0 0 0 4px rgb(227 144 107 / 0.25), 0 0 14px rgb(255 180 107 / 0.6); transform: scale(1.15); }
+  .rail-map li.now button { color: #F3ECE4; }
+  .rail-map li.now span, .rail-map:hover span, .rail-map button:focus-visible span { opacity: 1; transform: none; }
+  .rail-map button:focus-visible { outline: 2px solid #E3906B; outline-offset: 2px; border-radius: var(--sc-r-pill); }
+  .rail-map__skip {
+    font-size: var(--sc-t-xs); font-weight: 560; color: #E3906B; text-decoration: none;
+    min-height: 2.5rem; display: inline-flex; align-items: center; padding: 0 0.9rem; border-radius: var(--sc-r-pill);
+    box-shadow: inset 0 0 0 1px rgb(227 144 107 / 0.45); background: rgb(20 16 14 / 0.4);
+  }
+  @media (hover: hover) and (pointer: fine) { .rail-map__skip:hover { background: rgb(227 144 107 / 0.15); } }
+  .pill-map {
+    position: fixed; z-index: var(--sc-z-chrome); left: calc(1rem + env(safe-area-inset-left)); top: calc(1rem + env(safe-area-inset-top));
+    display: none; align-items: center; gap: 0.5rem; padding: 0.25rem 0.25rem 0.25rem 0.85rem; min-height: 2.75rem;
+    border-radius: var(--sc-r-pill); background: rgb(20 16 14 / 0.72); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    box-shadow: inset 0 0 0 1px rgb(243 236 228 / 0.16); color: #F3ECE4; font-size: var(--sc-t-xs);
+    opacity: 0; transform: translateY(-6px); transition: opacity 250ms, transform 250ms var(--sc-ease-out); pointer-events: none;
+  }
+  .pill-map.on { opacity: 1; transform: none; pointer-events: auto; }
+  .pill-map__count { color: #E3906B; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .pill-map__name { font-family: var(--sc-font-display); font-style: italic; font-size: 0.95rem; }
+  .pill-map__skip { margin-left: 0.25rem; min-height: 2.25rem; display: inline-flex; align-items: center; padding: 0 0.8rem; border-radius: var(--sc-r-pill); background: #E3906B; color: #1A110D; font-weight: 600; text-decoration: none; }
+  @media (max-width: 860px) { .rail-map { display: none !important; } .pill-map { display: inline-flex; } .pill-map[hidden] { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .rail-map, .pill-map, .rail-map button span { transition: none; } }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .hero-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.25rem; margin-top: var(--sc-5); }
   .hero-row .hero-link { margin-top: 0; }
@@ -497,6 +538,16 @@
 <a class="ig" id="ig" href="https://www.instagram.com/france.arte" target="_blank" rel="noopener" aria-label="Instagram da Francinete (@france.arte)" title="@france.arte"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5.2"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.4" cy="6.6" r="1.15" fill="currentColor" stroke="none"/></svg></a>
 
 <a class="fab" id="fab" href="https://wa.me/5561999092511?text=Ol%C3%A1%2C%20Francinete%21%20Vi%20o%20site%20e%20queria%20tirar%20uma%20d%C3%BAvida%20sobre%20os%20cursos%20de%20velas." target="_blank" rel="noopener" aria-label="Falar com a Francinete no WhatsApp"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2a8.7 8.7 0 0 0-7.5 13.1L3.3 20.8l4.6-1.2A8.7 8.7 0 1 0 12 3.2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.1 8.2c.2-.4.4-.4.7-.4h.5c.2 0 .4 0 .5.4l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.6 1 1.4 1.8 2.4 2.4.2.1.4.1.5 0l.6-.7c.2-.2.4-.2.6-.1l1.6.7c.3.1.3.3.3.5 0 .9-.6 1.6-1.5 1.8-.8.1-2.3-.1-4.2-1.7-1.6-1.4-2.4-2.9-2.6-3.8-.2-.9.2-1.7.5-2.4z" fill="currentColor"/></svg></a>
+
+<nav class="rail-map" id="railMap" aria-label="Partes da vela" hidden>
+  <ol id="railList"></ol>
+  <a class="rail-map__skip" href="#aula">Pular para a aula <span aria-hidden="true">↓</span></a>
+</nav>
+<div class="pill-map" id="pillMap" hidden>
+  <span class="pill-map__count" id="pillCount">1 de 7</span>
+  <span class="pill-map__name" id="pillName">Tampa</span>
+  <a class="pill-map__skip" href="#aula">Pular</a>
+</div>
 
 <main id="top">
 
@@ -1128,6 +1179,41 @@
   addEventListener('resize', placeSnaps);
   addEventListener('load', placeSnaps);
 
+  /* ---- Mapa da vela: trilha lateral (computador) e etiqueta no topo (celular). ---- */
+  var railMap = document.getElementById('railMap'), railList = document.getElementById('railList');
+  var pillMap = document.getElementById('pillMap'), pillCount = document.getElementById('pillCount'), pillName = document.getElementById('pillName');
+  var partNames = Array.prototype.slice.call(document.querySelectorAll('.part .part__name')).map(function (n) { return n.textContent.trim(); });
+  var railItems = partNames.map(function (name, i) {
+    var li = document.createElement('li');
+    li.innerHTML = '<button type="button"><span></span><i></i></button>';
+    li.querySelector('span').textContent = name;
+    li.querySelector('button').setAttribute('aria-label', 'Ir para ' + name);
+    li.querySelector('button').addEventListener('click', function () {
+      var y = peak.offsetTop + SNAP_P[i + 2] * (peak.offsetHeight - innerHeight);
+      scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
+    });
+    railList.appendChild(li); return li;
+  });
+  railMap.hidden = false; pillMap.hidden = false;
+  document.querySelectorAll('.rail-map__skip, .pill-map__skip').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      scrollTo({ top: document.getElementById('aula').getBoundingClientRect().top + scrollY, behavior: reduce ? 'auto' : 'smooth' });
+    });
+  });
+  var lastPart = -2, lastOn = null;
+  function drawRail(p) {
+    var r = peak.getBoundingClientRect();
+    var on = p > 0.11 && p < 0.995 && r.bottom > innerHeight * 0.6;
+    if (on !== lastOn) { railMap.classList.toggle('on', on); pillMap.classList.toggle('on', on); lastOn = on; }
+    var k = Math.max(0, Math.min(6, Math.floor((p - S0 - STEP * 0.15) / STEP)));
+    if (k !== lastPart) {
+      railItems.forEach(function (li, i) { li.classList.toggle('now', i === k); li.classList.toggle('done', i < k); });
+      pillCount.textContent = (k + 1) + ' de 7'; pillName.textContent = partNames[k];
+      lastPart = k;
+    }
+  }
+
   /* A vela do fim: o mesmo desenho, remontado, tampa ao lado, chama acesa. */
   var closeHost = document.getElementById('closeCandle');
   var clone = svg.cloneNode(true);
@@ -1308,6 +1394,7 @@
   function tick() {
     var p = readP();
     if (Math.abs(p - lastP) > 0.00005) { draw(p); drawCopy(p); lastP = p; }
+    drawRail(p);
     drawSteps();
 
     var onLight = false, y = 30;
